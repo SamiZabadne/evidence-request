@@ -1,9 +1,37 @@
 import { useEffect, useMemo, useState } from 'react';
 import { missions, MODES } from './data/missions';
+import {
+  AuditMissionQueue,
+  ClientResponseConsole,
+  ConsultantDebriefCard,
+  EvidenceEvaluation,
+  EvidenceSelection,
+  FollowUpChallenge,
+  FrameworkRelevanceCard,
+  FundamentalsCard,
+  MissionBrief,
+  MissionControlDashboard,
+  ModeSelectionScreen,
+  ProgressStepper,
+  ScorePanel,
+} from './components/GameComponents';
 
 const MODE_KEY = 'evidence-quest-mode';
+const statusFlow = ['New Mission', 'Evidence Requested', 'Client Responded', 'Follow-Up Required', 'Debrief Complete', 'Escalated'];
+const qualityRisk = { unsafe: 5, weak: 4, partial: 3, irrelevant: 2, strong: 1 };
+
+const enhancedModes = {
+  ...MODES,
+  rookie: { ...MODES.rookie, profile: 'Plain English · extra hints · teaching feedback', focus: 'Learning control basics with simple response patterns.' },
+  consultant: { ...MODES.consultant, profile: 'Realistic wording · moderate complexity', focus: 'Practical sufficiency judgment with similar-looking evidence choices.' },
+  leadAuditor: { ...MODES.leadAuditor, profile: 'Ambiguous scenarios · stronger penalties', focus: 'Finding classification, period coverage, and sample sufficiency.' },
+  workshop: { ...MODES.workshop, profile: 'Facilitator-led prompts and team discussion', focus: 'Ask-the-room conversations, talking points, and optional team scoring.' },
+};
+
+const decorateMission = (m) => ({ ...m, riskLevel: m.id.includes('IAM') ? 'High' : m.id.includes('LOG') ? 'Medium' : 'Low', difficulty: m.id.includes('IAM') ? 'Advanced' : 'Intermediate' });
 
 export default function App() {
+  const allMissions = useMemo(() => missions.map(decorateMission), []);
   const [mode, setMode] = useState(() => localStorage.getItem(MODE_KEY) || 'consultant');
   const [screen, setScreen] = useState('mode');
   const [missionIndex, setMissionIndex] = useState(0);
@@ -11,41 +39,81 @@ export default function App() {
   const [selectedEvidence, setSelectedEvidence] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
   const [score, setScore] = useState(0);
+  const [statusByMission, setStatusByMission] = useState({});
+  const [progressByMission, setProgressByMission] = useState({});
 
   useEffect(() => localStorage.setItem(MODE_KEY, mode), [mode]);
 
-  const mission = missions[missionIndex];
+  const mission = allMissions[missionIndex];
   const variant = mission?.modeVariants?.[mode];
-
   const evaluated = useMemo(() => mission?.evidenceOptions.filter((e) => selectedEvidence.includes(e.id)) || [], [mission, selectedEvidence]);
+  const orderedEvaluated = useMemo(() => [...evaluated].sort((a, b) => (qualityRisk[a.quality.toLowerCase()] || 99) - (qualityRisk[b.quality.toLowerCase()] || 99)), [evaluated]);
+  const primaryChallenge = orderedEvaluated[0];
 
-  const start = () => setScreen('dashboard');
+  const avgQuality = useMemo(() => {
+    const scores = orderedEvaluated.map((e) => 6 - (qualityRisk[e.quality.toLowerCase()] || 5));
+    if (!scores.length) return 'N/A';
+    return `${(scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1)}/5`;
+  }, [orderedEvaluated]);
+
+  const rank = score > 60 ? 'Principal Auditor' : score > 30 ? 'Senior Consultant' : 'Associate';
+
+  const setMissionStatus = (status, prog) => {
+    setStatusByMission((s) => ({ ...s, [missionIndex]: status }));
+    setProgressByMission((p) => ({ ...p, [missionIndex]: prog }));
+  };
 
   const submitEvidence = () => {
-    const multiplier = MODES[mode].scoring;
-    const points = evaluated.reduce((a, e) => a + Math.round(e.points * multiplier), 0);
+    const multiplier = enhancedModes[mode].scoring;
+    const points = orderedEvaluated.reduce((a, e) => a + Math.round(e.points * multiplier), 0);
     setScore((s) => s + points);
+    setMissionStatus('Client Responded', 60);
     setPhase('evaluation');
   };
 
-  const selectFollowUp = (ev) => {
-    const choice = ev.followUpOptions.find((o) => o === selectedOption);
-    if (choice === ev.bestFollowUpAnswer) setScore((s) => s + 5);
-    else setScore((s) => s - (mode === 'leadAuditor' ? 5 : 2));
+  const submitFollowUp = () => {
+    if (selectedOption === primaryChallenge.bestFollowUpAnswer) setScore((s) => s + 5);
+    else setScore((s) => s - (mode === 'leadAuditor' ? 8 : 3));
+    if (primaryChallenge.quality.toLowerCase() === 'unsafe') setMissionStatus('Escalated', 95);
+    else setMissionStatus('Debrief Complete', 95);
     setPhase('debrief');
   };
 
-  if (!mission) return <main className='page'><h1>Simulation Complete</h1><p>Mode: {MODES[mode].label}</p><p>Final Score: {score}</p></main>;
+  if (!mission) return <main className='page'><h1>Simulation Complete</h1><p>Mode: {enhancedModes[mode].label}</p><p>Final Score: {score}</p></main>;
+
+  const dashboardStats = {
+    'Active mode': enhancedModes[mode].label,
+    'Total missions': allMissions.length,
+    'Completed missions': missionIndex,
+    'Current score': score,
+    'Average evidence quality': avgQuality,
+    'Open follow-ups': phase === 'evaluation' ? 1 : 0,
+    'Escalated issues': Object.values(statusByMission).filter((s) => s === 'Escalated').length,
+    'Framework coverage': [...new Set(allMissions.flatMap((m) => m.frameworkTags))].length,
+    'Player rank': rank,
+  };
 
   return <main className='page'>
-    {screen === 'mode' && <section className='card'><h1>Select Simulation Mode</h1>{Object.entries(MODES).map(([key, cfg]) => <button key={key} className={`option ${mode === key ? 'selected' : ''}`} onClick={() => setMode(key)}>{cfg.label}</button>)}<button className='primary' onClick={start}>Continue</button></section>}
-    {screen === 'dashboard' && <section className='card'><h2>Audit Command Center</h2><p><b>Active Mode:</b> {MODES[mode].label}</p><p><b>Mission:</b> {mission.domain} · {mission.missionName}</p><p><b>Score:</b> {score}</p><button className='option' onClick={() => setScreen('mode')}>Change Mode</button><button className='primary' onClick={() => { setPhase('brief'); setScreen('game'); }}>Start Mission</button></section>}
+    {screen === 'mode' && <ModeSelectionScreen modes={enhancedModes} mode={mode} setMode={setMode} onContinue={() => setScreen('dashboard')} />}
+    {screen === 'dashboard' && <MissionControlDashboard stats={dashboardStats} onMode={() => setScreen('mode')} onStart={() => { setPhase('brief'); setScreen('game'); setMissionStatus('Evidence Requested', 20); }}>
+      <AuditMissionQueue missions={allMissions} current={missionIndex} statuses={allMissions.map((_, i) => statusByMission[i] || statusFlow[0])} progressByMission={progressByMission} />
+      <ScorePanel score={score} avgQuality={avgQuality} rank={rank} />
+    </MissionControlDashboard>}
     {screen === 'game' && <>
-      <section className='card'><p><b>Selected Mode:</b> {MODES[mode].label}</p><p><b>Domain:</b> {mission.domain}</p></section>
-      {phase === 'brief' && <section className='card'><h2>{mission.missionName}</h2><p>{variant.clientScenario}</p><p><b>Audit objective:</b> {variant.auditObjective}</p><p><b>Framework tags:</b> {mission.frameworkTags.join(', ')}</p><p><b>Hint:</b> {variant.hint}</p>{variant.discussionPrompt && <p><b>Discussion Prompt:</b> {variant.discussionPrompt}</p>}<button className='primary' onClick={() => setPhase('evidence')}>Open Evidence Request</button></section>}
-      {phase === 'evidence' && <section className='card'><h3>Evidence Request</h3><p>Select one or more requests:</p>{mission.evidenceOptions.map((e) => <label key={e.id}><input type='checkbox' checked={selectedEvidence.includes(e.id)} onChange={() => setSelectedEvidence((prev) => prev.includes(e.id) ? prev.filter((id) => id !== e.id) : [...prev, e.id])} /> {e.text}</label>)}<button className='primary' disabled={!selectedEvidence.length} onClick={submitEvidence}>Submit Evidence Request</button></section>}
-      {phase === 'evaluation' && <section className='card'><h3>Evidence Evaluation</h3>{evaluated.map((e) => <div key={e.id} className='alert'><p><b>Evidence:</b> {e.text}</p><p><b>Quality:</b> {e.quality}</p><p><b>Design/Operating:</b> {e.designOrOperating}</p><p><b>Why:</b> {e.why}</p><p><b>Points:</b> {Math.round(e.points * MODES[mode].scoring)}</p><p><b>Better request:</b> {e.betterRequest}</p><p><b>Client response:</b> {e.clientResponse}</p><p><b>Follow-up challenge:</b> {e.followUpChallenge}</p></div>)}<select value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}><option value=''>Select follow-up answer</option>{evaluated[0]?.followUpOptions.map((o) => <option key={o} value={o}>{o}</option>)}</select><button className='primary' disabled={!selectedOption} onClick={() => selectFollowUp(evaluated[0])}>Submit Follow-Up</button></section>}
-      {phase === 'debrief' && <section className='card'><h3>Consultant Debrief</h3><p><b>Risk type:</b> {mission.consultantDebrief.riskType}</p><p><b>Assets involved:</b> {mission.consultantDebrief.assetsInvolved.join(', ')}</p><p><b>Data involved:</b> {mission.consultantDebrief.dataInvolved}</p><p><b>CIA impact:</b> {mission.consultantDebrief.ciaImpact}</p><p><b>Audit judgment:</b> {mission.consultantDebrief.auditJudgment}</p><p><b>Potential finding:</b> {mission.consultantDebrief.potentialFinding}</p><p><b>Recommended follow-up:</b> {mission.consultantDebrief.recommendedFollowUp}</p><p><b>Consultant lesson:</b> {mission.consultantDebrief.consultantLesson}</p><p><b>Common mistake:</b> {mission.consultantDebrief.commonMistake}</p><h4>Fundamentals</h4><p>{mission.fundamentalsLesson.whatItMeans}</p><p>{mission.fundamentalsLesson.whyAuditorsCare}</p><p>{mission.fundamentalsLesson.riskReduced}</p><p>{mission.fundamentalsLesson.goodEvidence}</p><p>{mission.fundamentalsLesson.commonMistake}</p><p>{mission.fundamentalsLesson.analogy}</p><h4>Framework Relevance</h4>{mission.frameworkMappings.map((m) => <p key={m.controlId}>{m.framework} | {m.controlId} | {m.controlName} — {m.relevance}</p>)}<button className='primary' onClick={() => { setMissionIndex((i) => i + 1); setSelectedEvidence([]); setSelectedOption(''); setPhase('brief'); }}>Next Mission</button></section>}
+      <ProgressStepper phase={phase} />
+      {phase === 'brief' && <MissionBrief mission={mission} variant={variant} modeCfg={enhancedModes[mode]} onNext={() => { setMissionStatus('Evidence Requested', 40); setPhase('evidence'); }} />}
+      {phase === 'evidence' && <EvidenceSelection mission={mission} selectedEvidence={selectedEvidence} setSelectedEvidence={setSelectedEvidence} onSubmit={submitEvidence} />}
+      {phase === 'evaluation' && <>
+        <EvidenceEvaluation evaluated={orderedEvaluated} pointsById={Object.fromEntries(orderedEvaluated.map((e) => [e.id, Math.round(e.points * enhancedModes[mode].scoring)]))} />
+        <ClientResponseConsole evaluated={orderedEvaluated} followUpChallenge={primaryChallenge} />
+        <FollowUpChallenge challenge={primaryChallenge} selectedOption={selectedOption} setSelectedOption={setSelectedOption} onSubmit={submitFollowUp} />
+      </>}
+      {phase === 'debrief' && <>
+        <ConsultantDebriefCard debrief={mission.consultantDebrief} />
+        <FundamentalsCard lesson={mission.fundamentalsLesson} />
+        <FrameworkRelevanceCard mappings={mission.frameworkMappings} />
+        <button className='primary' onClick={() => { setMissionIndex((i) => i + 1); setSelectedEvidence([]); setSelectedOption(''); setPhase('brief'); setScreen('dashboard'); }}>Next Mission</button>
+      </>}
     </>}
   </main>;
 }
