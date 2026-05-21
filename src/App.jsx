@@ -26,7 +26,6 @@ export default function App() {
 
   const totalQuestions = useMemo(() => levels.reduce((sum, level) => sum + level.questions.length, 0), [levels]);
   const maxScore = levels.flatMap((l) => l.questions).reduce((sum, q) => sum + q.points.evidence + q.points.followUp, 0);
-
   const currentLevel = levels[levelIndex];
   const currentQuestion = currentLevel?.questions[questionIndex];
 
@@ -34,7 +33,7 @@ export default function App() {
   const score = Object.values(answers).reduce((a, b) => a + (b.pointsEarned || 0) + (b.followUpPoints || 0), 0);
   const progress = Math.round((answeredCount / totalQuestions) * 100);
 
-  const answerState = answers[currentQuestion.id] || { selected: [], stage: 'evidence', followUpSelection: null, pointsEarned: 0, followUpPoints: 0 };
+  const answerState = answers[currentQuestion.id] || { selected: [], stage: 'evidence', activeBranch: null, followUpSelection: null, pointsEarned: 0, followUpPoints: 0 };
 
   const toggleOption = (optionIndex) => {
     const prev = answerState.selected;
@@ -44,14 +43,18 @@ export default function App() {
 
   const submitEvidence = () => {
     const selected = answerState.selected;
-    const correct = currentQuestion.correctEvidenceOptions;
-    const isExact = selected.length === correct.length && selected.every((s) => correct.includes(s));
-    setAnswers((old) => ({ ...old, [currentQuestion.id]: { ...answerState, stage: 'curveball', pointsEarned: isExact ? currentQuestion.points.evidence : 0 } }));
+    const branches = currentQuestion.evidenceBranches || [];
+    const primarySelected = selected[0];
+    const activeBranch = branches.find((b) => b.optionIndex === primarySelected);
+    const evidencePoints = selected.reduce((sum, idx) => sum + (branches.find((b) => b.optionIndex === idx)?.scoringImpact?.evidenceScoreDelta || 0), 0);
+    setAnswers((old) => ({ ...old, [currentQuestion.id]: { ...answerState, stage: 'curveball', activeBranch, pointsEarned: Math.max(0, evidencePoints) } }));
   };
 
   const submitFollowUp = () => {
-    const isBest = answerState.followUpSelection === currentQuestion.bestFollowUpAnswer;
-    setAnswers((old) => ({ ...old, [currentQuestion.id]: { ...answerState, stage: 'done', followUpPoints: isBest ? currentQuestion.points.followUp : 0 } }));
+    const best = answerState.activeBranch?.followUpChallenge?.bestAnswer ?? currentQuestion.bestFollowUpAnswer;
+    const isBest = answerState.followUpSelection === best;
+    const scoreAward = answerState.activeBranch?.scoringImpact?.followUpBestScore ?? currentQuestion.points.followUp;
+    setAnswers((old) => ({ ...old, [currentQuestion.id]: { ...answerState, stage: 'done', followUpPoints: isBest ? scoreAward : 0 } }));
   };
 
   const goNext = () => {
@@ -64,72 +67,32 @@ export default function App() {
   if (screen === 'levelComplete') return <div className='page'><LevelComplete level={currentLevel} onNext={() => { setLevelIndex((i) => i + 1); setQuestionIndex(0); setScreen('game'); }} /></div>;
   if (screen === 'final') return <div className='page'><Final score={score} max={maxScore} rank={rankByScore(score, maxScore)} quality={qualityBadge(score, maxScore)} onRestart={() => window.location.reload()} /></div>;
 
-  return (
-    <div className='page'>
-      <header className='topbar'>
-        <h1>Evidence Quest: Audit Dialogue Simulator</h1>
-        <div className='badges'>
-          <span className='badge'>{currentLevel.name}</span>
-          <span className='badge'>Mission: {currentQuestion.missionName}</span>
-          <span className='badge'>Score: {score}</span>
-        </div>
-      </header>
-      <div className='progress'><div className='fill' style={{ width: `${progress}%` }} /></div>
-      <section className='card'>
-        <p className='iso'>{currentQuestion.isoReference}</p>
-        <h2>Client Scenario</h2>
-        <p>{currentQuestion.clientScenario}</p>
+  const activeBranch = answerState.activeBranch;
+  const followUp = activeBranch?.followUpChallenge;
 
-        <h3>Evidence Request Selection</h3>
-        <div className='options'>
-          {currentQuestion.evidenceOptions.map((option, idx) => (
-            <button key={option} className={`option ${answerState.selected.includes(idx) ? 'selected' : ''}`} onClick={() => answerState.stage === 'evidence' && toggleOption(idx)}>
-              {option}
-            </button>
-          ))}
-        </div>
-
-        {answerState.stage === 'evidence' && <button className='primary' onClick={submitEvidence} disabled={answerState.selected.length === 0}>Submit Evidence Request</button>}
-
-        {answerState.stage !== 'evidence' && (
-          <>
-            <div className='dialogue'>
-              <h3>Client Response</h3>
-              <p>{currentQuestion.clientCurveballResponse}</p>
-            </div>
-
-            <div className='followup'>
-              <h3>Follow-Up Challenge</h3>
-              <p>{currentQuestion.followUpQuestion}</p>
-              {currentQuestion.followUpAnswerOptions.map((opt, idx) => (
-                <button key={opt} className={`option ${answerState.followUpSelection === idx ? 'selected' : ''}`} onClick={() => answerState.stage === 'curveball' && setAnswers((old) => ({ ...old, [currentQuestion.id]: { ...answerState, followUpSelection: idx } }))}>{opt}</button>
-              ))}
-              {answerState.stage === 'curveball' && <button className='primary' onClick={submitFollowUp} disabled={answerState.followUpSelection === null}>Submit Follow-Up Action</button>}
-            </div>
-          </>
-        )}
-
-        {answerState.stage === 'done' && (
-          <>
-            <div className='summary'>
-              <h3>Risk Impact Summary</h3>
-              <p><strong>Risk Type:</strong> {currentQuestion.riskType}</p>
-              <p><strong>Assets Involved:</strong> {currentQuestion.assetsInvolved}</p>
-              <p><strong>Data Involved:</strong> {currentQuestion.dataInvolved}</p>
-              <p><strong>Evidence Quality:</strong> <span className={`quality ${qualityBadge(answerState.pointsEarned + answerState.followUpPoints, currentQuestion.points.evidence + currentQuestion.points.followUp).toLowerCase()}`}>{qualityBadge(answerState.pointsEarned + answerState.followUpPoints, currentQuestion.points.evidence + currentQuestion.points.followUp)}</span></p>
-              <p><strong>Audit Judgment:</strong> {currentQuestion.auditJudgment}</p>
-              <p><strong>Potential Finding:</strong> {currentQuestion.potentialFinding}</p>
-              <p><strong>Consultant Lesson:</strong> {currentQuestion.consultantLesson}</p>
-              <p className='points'>Score update: {answerState.pointsEarned}/{currentQuestion.points.evidence} + {answerState.followUpPoints}/{currentQuestion.points.followUp}</p>
-            </div>
-            <button className='primary' onClick={goNext}>Continue Mission</button>
-          </>
-        )}
-      </section>
-    </div>
-  );
+  return (<div className='page'>
+    <header className='topbar'><h1>Evidence Quest: Audit Dialogue Simulator</h1><div className='badges'><span className='badge'>{currentLevel.name}</span><span className='badge'>Mission: {currentQuestion.missionName}</span><span className='badge'>Score: {score}</span></div></header>
+    <div className='progress'><div className='fill' style={{ width: `${progress}%` }} /></div>
+    <section className='card'>
+      <p className='iso'>{currentQuestion.isoReference}</p><h2>Client Scenario</h2><p>{currentQuestion.initialScenario?.clientClaim || currentQuestion.clientScenario}</p>
+      <h3>Evidence Request Selection</h3><div className='options'>{currentQuestion.evidenceOptions.map((option, idx) => (<button key={option} className={`option ${answerState.selected.includes(idx) ? 'selected' : ''}`} onClick={() => answerState.stage === 'evidence' && toggleOption(idx)}>{option}</button>))}</div>
+      {answerState.stage === 'evidence' && <button className='primary' onClick={submitEvidence} disabled={answerState.selected.length === 0}>Submit Evidence Request</button>}
+      {answerState.stage !== 'evidence' && (<><div className='dialogue'><h3>Client Response</h3><p>{activeBranch?.clientResponse || currentQuestion.clientCurveballResponse}</p></div>
+      <div className='followup'><h3>Follow-Up Challenge</h3><p>{followUp?.question || currentQuestion.followUpQuestion}</p>{(followUp?.options || currentQuestion.followUpAnswerOptions).map((opt, idx) => (<button key={opt} className={`option ${answerState.followUpSelection === idx ? 'selected' : ''}`} onClick={() => answerState.stage === 'curveball' && setAnswers((old) => ({ ...old, [currentQuestion.id]: { ...answerState, followUpSelection: idx } }))}>{opt}</button>))}{answerState.stage === 'curveball' && <button className='primary' onClick={submitFollowUp} disabled={answerState.followUpSelection === null}>Submit Follow-Up Action</button>}</div></>)}
+      {answerState.stage === 'done' && (<><div className='summary'><h3>Consultant Debrief</h3>
+      <p><strong>Risk Type:</strong> {currentQuestion.consultantDebrief?.riskType || currentQuestion.riskType}</p>
+      <p><strong>Assets Involved:</strong> {currentQuestion.consultantDebrief?.assetsInvolved || currentQuestion.assetsInvolved}</p>
+      <p><strong>Data Involved:</strong> {currentQuestion.consultantDebrief?.dataInvolved || currentQuestion.dataInvolved}</p>
+      <p><strong>Evidence Quality:</strong> <span className={`quality ${qualityBadge(answerState.pointsEarned + answerState.followUpPoints, currentQuestion.points.evidence + currentQuestion.points.followUp).toLowerCase()}`}>{activeBranch?.scoringImpact?.evidenceQualityImpact || qualityBadge(answerState.pointsEarned + answerState.followUpPoints, currentQuestion.points.evidence + currentQuestion.points.followUp)}</span></p>
+      <p><strong>Audit Judgment:</strong> {currentQuestion.consultantDebrief?.auditJudgment || currentQuestion.auditJudgment}</p>
+      <p><strong>Potential Finding:</strong> {currentQuestion.consultantDebrief?.potentialFinding || currentQuestion.potentialFinding}</p>
+      <p><strong>Relevant Framework Controls:</strong> {(currentQuestion.frameworkMapping || []).join(' | ')}</p>
+      <p><strong>Fundamentals/Basics:</strong> {currentQuestion.fundamentalsLesson}</p>
+      <p className='points'>Score update: {answerState.pointsEarned}/{currentQuestion.points.evidence} + {answerState.followUpPoints}/{currentQuestion.points.followUp}</p></div>
+      <button className='primary' onClick={goNext}>Continue Mission</button></>)}
+    </section></div>);
 }
 
-const Home = ({ onStart }) => <section className='card center'><h1>Evidence Quest: ISO 27001 Audit Dialogue</h1><p>Run simulated client conversations, test evidence quality, handle curveballs, and issue risk-based audit judgments.</p><button className='primary' onClick={onStart}>Start Mission</button></section>;
+const Home = ({ onStart }) => <section className='card center'><h1>Evidence Quest: ISO 27001 Audit Dialogue</h1><p>Run realistic audit/client conversations, test evidence quality, and issue risk-based audit judgments with branching follow-up challenges.</p><button className='primary' onClick={onStart}>Start Mission</button></section>;
 const LevelComplete = ({ level, onNext }) => <section className='card center'><h2>Level Complete: {level.name}</h2><button className='primary' onClick={onNext}>Proceed</button></section>;
 const Final = ({ score, max, rank, quality, onRestart }) => <section className='card center'><h2>Final Audit Summary</h2><p>Your score: <strong>{score}</strong> / {max}</p><p>Rank: <span className='rank'>{rank}</span></p><p>Evidence quality badge: <span className={`quality ${quality.toLowerCase()}`}>{quality}</span></p><button className='primary' onClick={onRestart}>Restart Challenge</button></section>;
