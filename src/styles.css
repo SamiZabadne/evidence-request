@@ -5,7 +5,7 @@ h1,h2,h3,h4 { margin: 0 0 8px; }
 .top-header { background: #0f1f35; padding: 14px; border: 1px solid #314d72; border-radius: 10px; margin-bottom: 12px; }
 .mode-row { margin-top: 10px; display:flex; flex-wrap:wrap; gap:8px; }
 .layout-grid { display: grid; grid-template-columns: 320px 1fr 260px; gap: 12px; }
-.panel { background: #111a2b; border: 1px solid #2e405f; border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+.panel { background: linear-gradient(180deg, #111a2b 0%, #0f1928 100%); border: 1px solid #2e405f; border-radius: 10px; padding: 12px; margin-bottom: 10px; box-shadow: inset 0 1px 0 rgba(120,170,230,.08); }
 .queue { display: grid; gap: 8px; max-height: 70vh; overflow: auto; }
 .mission-card { text-align: left; background: #13233a; border: 1px solid #2b4468; border-radius: 8px; padding: 10px; color: inherit; }
 .mission-card.active { border-color:#69c2ff; box-shadow: 0 0 0 2px #2b6ca4; }
@@ -19,6 +19,7 @@ h1,h2,h3,h4 { margin: 0 0 8px; }
 .risk.high { background:#5a1c25; } .risk.medium { background:#5a481c; } .risk.low { background:#1d5a37; } .framework { background:#1b3350; }
 .evidence-row { display:block; margin:8px 0; line-height:1.4; }
 .alert { border:1px solid #355076; border-radius:8px; padding:8px; margin-bottom:8px; }
+.alert p { margin: 5px 0; }
 .quality-strong{border-color:#2da865}.quality-partial{border-color:#d7a741}.quality-weak,.quality-irrelevant{border-color:#d76f41}.quality-unsafe{border-color:#d74156}
 .console pre { background:#09101b; border:1px solid #263b56; padding:8px; overflow:auto; white-space:pre-wrap; }
 .mini-section { border:1px solid #2e405f; border-radius:8px; padding:8px; margin-bottom:8px; background:#101a2a; }
@@ -29,6 +30,8 @@ button.primary { background:#2463b3; }
 .filters { display:grid; gap:6px; }
 .score { font-size: 28px; font-weight: 700; }
 .action-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.mission-complete { border-color: #3f6e9f; background: linear-gradient(160deg, #132543, #111a2b 55%); }
+.mission-complete p { font-size: .98rem; }
 @media (max-width: 980px) { .layout-grid { grid-template-columns: 1fr; } .stepper { grid-template-columns: repeat(2,1fr); } }
 
 .mission-brief h2 { margin-bottom: 4px; }
@@ -36,6 +39,8 @@ button.primary { background:#2463b3; }
 .panel h3 { font-size: 1.1rem; margin-bottom: 10px; }
 .panel p { margin: 6px 0; line-height: 1.45; }
 .mini-section { padding: 10px; }
+.mini-section p { color: #d8e7fa; }
+.panel.console pre { border-left: 3px solid #4ea9ff; }
 .quality-badge.quality-strong{ background:#1f5d3f; border-color:#3ac07a; }
 .quality-badge.quality-partial{ background:#5f4d19; border-color:#e3b24b; }
 .quality-badge.quality-weak,.quality-badge.quality-irrelevant{ background:#5d341d; border-color:#e38a4b; }

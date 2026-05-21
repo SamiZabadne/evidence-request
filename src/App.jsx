@@ -5,7 +5,7 @@ import { AuditCommandLayout, ClientResponseConsole, ConsultantDebriefCard, Escal
 
 const MODE_KEY = 'evidence-quest-mode';
 const statusFlow = ['New Mission', 'Evidence Requested', 'Client Responded', 'Follow-Up Submitted', 'Debrief Reviewed', 'Fundamentals Reviewed', 'Mission Complete', 'Escalated'];
-const stepIndex = { brief: 0, evidence: 1, evaluation: 2, client: 3, followUp: 4, followUpFeedback: 4, debrief: 5, fundamentals: 6, framework: 7 };
+const stepIndex = { brief: 0, evidence: 1, evaluation: 2, client: 3, followUp: 4, followUpFeedback: 4, debrief: 5, fundamentals: 6, framework: 7, missionComplete: 7 };
 
 const enhancedModes = {
   ...MODES,
@@ -48,7 +48,7 @@ export default function App() {
     setMissionStatus(challenge.quality?.toLowerCase() === 'unsafe' ? 'Escalated' : 'Follow-Up Submitted', 78);
     setPhase('followUpFeedback');
   };
-  const finishMission = () => { setMissionStatus('Mission Complete', 100); };
+  const finishMission = () => { setMissionStatus('Mission Complete', 100); setPhase('missionComplete'); };
 
   if (!mission) return <main className='page'><h1>Simulation Complete</h1><p>Final Score: {score}</p></main>;
 
@@ -65,7 +65,8 @@ export default function App() {
       {phase === 'followUpFeedback' && <FollowUpFeedbackPanel feedback={followUpFeedback} onContinue={() => setPhase('debrief')} />}
       {phase === 'debrief' && <><ConsultantDebriefCard debrief={mission.consultantDebrief} /><button className='primary' onClick={() => { setMissionStatus('Debrief Reviewed', 86); setPhase('fundamentals'); }}>Continue</button></>}
       {phase === 'fundamentals' && <><FundamentalsCard lesson={mission.fundamentalsLesson} /><button className='primary' onClick={() => { setMissionStatus('Fundamentals Reviewed', 94); setPhase('framework'); }}>Continue</button></>}
-      {phase === 'framework' && <><FrameworkRelevanceCard mappings={mission.frameworkMappings} /><div className='action-row'><button className='primary' onClick={finishMission}>Finish Mission</button><button onClick={() => { setMissionIndex(0); resetMissionState(); }}>Return to Dashboard</button><button onClick={() => { finishMission(); setMissionIndex((i) => i + 1); resetMissionState(); }}>Next Mission</button></div></>}
+      {phase === 'framework' && <><FrameworkRelevanceCard mappings={mission.frameworkMappings} /><div className='action-row'><button className='primary' onClick={finishMission}>Finish Mission</button><button onClick={() => { setPhase('brief'); }}>Return to Mission Queue</button><button onClick={() => { setMissionIndex(0); resetMissionState(); }}>Restart Queue</button></div></>}
+      {phase === 'missionComplete' && <section className='panel mission-complete'><h3>Mission Complete</h3><p><b>Mission:</b> {mission.missionName}</p><p><b>Status:</b> Mission Complete</p><p><b>Score:</b> {score}</p><p><b>Evidence quality:</b> {avgQuality}</p><p><b>Key lesson:</b> {mission.fundamentalsLesson?.whyAuditorsCare}</p><div className='action-row'><button onClick={() => setPhase('brief')}>Return to Mission Queue</button><button className='primary' onClick={() => { setMissionIndex((i) => i + 1); resetMissionState(); }}>Next Mission</button><button onClick={resetMissionState}>Replay Mission</button></div></section>}
     </>}
   /></main>;
 }
