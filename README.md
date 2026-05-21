@@ -24,6 +24,15 @@ A web-based interactive training game for cybersecurity consultants to practice 
    npm run preview
    ```
 
+## Deploy to GitHub Pages
+1. Push this repository to GitHub and ensure your default branch is named `main`.
+2. In your GitHub repository, go to **Settings → Pages**.
+3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+4. Push a commit to `main` (or run the workflow manually from **Actions → Deploy to GitHub Pages**).
+5. Wait for the workflow to finish. It will publish the game and show a deployment URL.
+6. Your live game URL will be:
+   - `https://<your-github-username>.github.io/evidence-request/`
+
 ## Gameplay overview
 - You act as an auditor reviewing fictional client scenarios.
 - In each question, select the strongest evidence options.
