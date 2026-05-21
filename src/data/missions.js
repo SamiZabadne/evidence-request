@@ -39,6 +39,67 @@ const modeBundle = (objective, rookieEvidence, consultantEvidence, leadEvidence,
 });
 
 
+
+const MODE_MIN_EVIDENCE = { rookie: 5, consultant: 7, leadAuditor: 8, workshop: 6 };
+
+const domainScenarios = {
+  'Identity & Access Management': 'At fictional company Northbridge Retail Group, the application owner for Meridian Finance Hub explains that access is requested in ServiceDesk Nova and should be approved before provisioning. During urgent onboarding, team leads sometimes authorize by email and the ticket is updated later, so exception governance is under review.',
+  'Asset Management': 'At fictional company Atlas Meridian Logistics, infrastructure operations share that the CMDB, endpoint agent, and procurement ledger are reconciled monthly, but contractor laptops and leased returns are tracked in a separate spreadsheet that was not updated for several weeks.',
+  'Cloud Security': 'At fictional company Aurora Commerce Labs, the cloud platform team demonstrates guardrails in OrionCloud, but a newly onboarded subscription from an acquisition is still on interim controls and one temporary public-access exception remained open longer than target.',
+  'Incident Management': 'At fictional company Harborline Health Services, the SOC manager shows incident handling through Sentinel Desk, yet analysts note some high-severity alerts were triaged via chat during staffing shortages and documented in the case tool afterward.',
+  'Third-Party Security': 'At fictional company Crescent Pay Systems, vendor risk leadership states critical suppliers complete due diligence and annual reviews, but evidence for inherited subservice-provider monitoring is split between contract folders and email approvals.',
+  'BCP / DR / Backup': 'At fictional company Ironwood Media Network, IT operations report backup jobs are successful for critical workloads, but recent restore exercises covered infrastructure only and did not include all business service dependencies.',
+  'Change Management': 'At fictional company Silverline Transit Services, release managers explain normal changes follow CAB approval in ChangeFlow, while emergency deployments are common during weekend releases and retrospective validation is sometimes delayed.',
+  'Physical Security': 'At fictional company Redwood Pharma Distribution, facilities security shows badge and CCTV monitoring for after-hours access, but regional offices use separate recorders and clock synchronization has drifted during recent maintenance.',
+  'Data Protection / Classification': 'At fictional company Bluepeak Advisory Partners, data governance confirms a classification standard is published, yet DLP for external sharing is partly in monitor mode and exception approvals are scattered across workflow and mailbox records.',
+};
+
+const buildVariantNarrative = (mission, modeKey, objective) => {
+  const scenarioBase = domainScenarios[mission.domain] || `At fictional company ${mission.missionName.replace(/[^A-Za-z ]/g, '').trim() || 'Helios Group'}, control owners describe the current process and known exceptions.`;
+  const modeTail = {
+    rookie: 'As a junior consultant, your job is to separate policy statements from real operating evidence for the audit period.',
+    consultant: 'As the field consultant, you must determine whether exceptions are approved, monitored, and remediated before concluding control effectiveness.',
+    leadAuditor: 'As lead auditor, challenge sample coverage, timing gaps, and residual risk before accepting the evidence package.',
+    workshop: 'In workshop mode, the team must defend why the selected evidence would withstand partner review and external challenge.',
+  }[modeKey];
+  const hint = `Focus on audit-period proof, not statements: request records that show ownership, approval/sign-off, timestamps, full population source, exceptions, and remediation closure for ${mission.missionName}.`;
+  return {
+    scenario: `${scenarioBase} ${modeTail}`,
+    objective: `Validate whether ${objective.charAt(0).toLowerCase()}${objective.slice(1).replace(/\.$/, '')} across design, operation, timing, ownership, and exception handling during the audit period.`,
+    hint,
+  };
+};
+
+const ensureFollowUpOptions = (ev) => {
+  const base = ev.followUpOptions || [];
+  const extras = [
+    'Request only a policy excerpt and defer operating testing until next cycle.',
+    'Accept the artifact because it appears complete without validating population coverage.',
+    'Raise a major finding immediately before validating whether compensating controls exist.',
+    'Ask for an unrelated system screenshot to keep momentum even if it does not address the objective.',
+    'Request evidence of approval/sign-off, source population, exceptions, and closure for the same audit period.'
+  ];
+  const out = [...new Set([ev.bestFollowUpAnswer, ...base, ...extras])];
+  return out.slice(0, Math.max(7, out.length));
+};
+
+const expandEvidenceList = (modeKey, evidence, mission) => {
+  const min = MODE_MIN_EVIDENCE[modeKey];
+  const arr = [...evidence];
+  let i = 1;
+  while (arr.length < min) {
+    const seed = arr[(i - 1) % arr.length];
+    arr.push({
+      ...seed,
+      id: `${seed.id}-x${i}`,
+      text: `${seed.text} Additional sample focus ${i}: include exception cases, ownership confirmation, and period-complete population tracing for ${mission.missionName}.`,
+      riskAddressed: `${seed.riskAddressed} plus residual risk from excluded populations and unmanaged exceptions.`,
+      nextEvidence: `${seed.nextEvidence} Then provide closure tracker ${i} with approver sign-off and remediation dates.`,
+    });
+    i += 1;
+  }
+  return arr;
+};
 const minimumSelectionsByMode = { rookie: 2, consultant: 2, leadAuditor: 3, workshop: 2 };
 const qualityGuidance = {
   Strong: 'defensible for both design and operating conclusions when coverage is complete',
@@ -52,7 +113,7 @@ const enrichEvidence = (ev, objective) => {
   const limits = `It does not prove population completeness, exception closure, and consistency across the full audit period unless combined with additional evidence.`;
   return {
     ...ev,
-    why: `This evidence is ${ev.quality.toLowerCase()} because it addresses the objective to ${objective.toLowerCase()} and supports the assertion that controls were properly designed and/or operated during the audit period. It is ${qualityGuidance[ev.quality] || 'useful only with context'}. A junior consultant should learn to test approvals, timing, and traceability instead of accepting one artifact at face value. If this evidence is incomplete, residual risk remains that exceptions, out-of-period events, or excluded populations hide control failure. In a real client assessment, this is defensible only when sampling logic, period coverage, and exception handling are clearly documented.`,
+    why: `This evidence has a ${ev.quality.toLowerCase()} reliability profile because it addresses the objective to ${objective.toLowerCase()} and supports the assertion that controls were properly designed and/or operated during the audit period. It is ${qualityGuidance[ev.quality] || 'useful only with context'}. A junior consultant should learn to test approvals, timing, and traceability instead of accepting one artifact at face value. If this evidence is incomplete, residual risk remains that exceptions, out-of-period events, or excluded populations hide control failure. In a real client assessment, this is defensible only when sampling logic, period coverage, and exception handling are clearly documented.`,
     betterRequest: `Please provide audit-period evidence for ${ev.text.toLowerCase()} for the named in-scope system(s), using a risk-based sample size that includes high-risk transactions and normal cases. Include required fields: request/record ID, requester or owner, approver name and timestamp, execution timestamp, affected asset or role, exception flag, and closure status. For exceptions or emergency cases, include retrospective approval, remediation owner, due date, and closure proof. Please include control-owner sign-off that the provided population is complete for the audit period.` ,
     clientResponse: `We can share part of this request, but one source system is missing historical fields and some records were handled manually during a staffing gap, so the package may not include full exception closure detail for every item.`,
     auditorNote: `This response introduces a completeness and reliability issue. Before concluding, confirm whether missing fields affect key assertions and request compensating evidence for manually handled items.`,
@@ -72,15 +133,17 @@ const enrichEvidence = (ev, objective) => {
 };
 const enrichDebrief = (d) => ({
   ...d,
-  consultantLesson: `${d.consultantLesson} Before asking for evidence, define what assertion you need to prove, what period is in scope, and what outcome would justify clarification versus a minor or major finding. This prevents broad requests and supports defensible audit judgments.`,
-  commonMistake: `${d.commonMistake} Junior consultants often stop once they receive a document that looks formal, but senior reviewers expect proof of design, operation, completeness, and exception closure during the audit period.`
+  consultantLesson: `${d.consultantLesson} Before asking for evidence, define exactly what you are trying to prove, which period is in scope, and which risk statement would justify clarification, an observation, a minor finding, or a major finding. A senior consultant links each request to assertions on design, operation, completeness, timing, ownership, and exception remediation so the final conclusion can be defended in quality review and with client leadership.`,
+  commonMistake: `${d.commonMistake} Junior consultants often stop once they receive a document that looks formal, but senior reviewers expect proof of design, operation, completeness, exception handling, and closure evidence for the full period. Another practical mistake is failing to challenge missing populations, undocumented approvals, or unresolved exceptions that can materially change audit judgment.`
 });
 const enrichFundamentals = (f) => ({
   ...f,
-  whatItMeans: `${f.whatItMeans} In simple terms, the control must be clearly defined, consistently executed, and evidenced in a way an independent reviewer can verify.`,
-  whyAuditorsCare: `${f.whyAuditorsCare} During assessments, this determines whether the conclusion can withstand challenge from internal quality review or external stakeholders.`,
-  goodEvidence: `${f.goodEvidence} Strong evidence should include period coverage, ownership, approval/sign-off, exceptions, and remediation closure.`,
-  commonMistake: `${f.commonMistake} Another common issue is failing to reconcile multiple data sources before concluding completeness.`
+  whatItMeans: `${f.whatItMeans} In simple terms, the control must be clearly defined, consistently executed, and evidenced in a way an independent reviewer can verify without relying on verbal explanation alone.`,
+  whyAuditorsCare: `${f.whyAuditorsCare} During assessments, this determines whether the conclusion can withstand challenge from internal quality review, regulators, and external stakeholders who expect traceable support.`,
+  riskReduced: `${f.riskReduced} This control reduces the chance of hidden failures, unauthorized actions, incomplete records, and unmanaged exceptions that can create financial, operational, and compliance impact.`,
+  goodEvidence: `${f.goodEvidence} Strong evidence should include period coverage, ownership, approval/sign-off, source population completeness, exception handling, and remediation closure with dates.`,
+  commonMistake: `${f.commonMistake} Another common issue is failing to reconcile multiple data sources before concluding completeness, then overlooking exceptions that remain open past target dates.`,
+  analogy: `${f.analogy} The control is like verifying a full travel itinerary: booking confirmation alone is not enough; you need timestamps, check-ins, exceptions, and proof the trip actually completed as planned.`
 });
 
 const debrief = (riskType, assetsInvolved, dataInvolved, ciaImpact, auditJudgment, potentialFinding, recommendedFollowUp, consultantLesson, commonMistake) => ({
@@ -186,7 +249,11 @@ const baseMissions = [
 export const missions = baseMissions.map((m) => ({
   ...m,
   minimumSelections: { ...minimumSelectionsByMode, ...(m.minimumSelections || {}) },
-  modeVariants: Object.fromEntries(Object.entries(m.modeVariants).map(([k, v]) => [k, { ...v, evidenceOptions: v.evidenceOptions.map((ev) => enrichEvidence(ev, v.auditObjective || m.missionName)) }])),
+  modeVariants: Object.fromEntries(Object.entries(m.modeVariants).map(([k, v]) => {
+    const narrative = buildVariantNarrative(m, k, v.auditObjective || m.missionName);
+    const expanded = expandEvidenceList(k, v.evidenceOptions, m).map((ev) => enrichEvidence({ ...ev, followUpOptions: ensureFollowUpOptions(ev) }, v.auditObjective || m.missionName));
+    return [k, { ...v, clientScenario: narrative.scenario, auditObjective: narrative.objective, hint: narrative.hint, evidenceOptions: expanded }];
+  })),
   consultantDebrief: enrichDebrief(m.consultantDebrief),
   fundamentalsLesson: enrichFundamentals(m.fundamentalsLesson),
 }));

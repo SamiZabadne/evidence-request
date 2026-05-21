@@ -45,7 +45,7 @@ export default function App() {
   const submitFollowUp = () => {
     const correct = selectedOption === challenge.bestFollowUpAnswer;
     setScore((s) => s + (correct ? 5 : (mode === 'leadAuditor' ? -8 : -3)));
-    setFollowUpFeedback({ correct, message: correct ? challenge.followUpFeedback : 'The answer missed the highest-risk unresolved concern.', strongerAsk: challenge.bestFollowUpAnswer, riskAddressed: challenge.riskAddressed, nextEvidence: challenge.nextEvidence });
+    setFollowUpFeedback({ correct, message: correct ? challenge.followUpFeedback : 'This answer is weak because it does not fully confirm approval quality, population completeness, exception remediation, and audit-period timing. The strongest response requests sign-off evidence, source population integrity, exception closure proof, and supporting records that a senior consultant can defend in quality review.', strongerAsk: challenge.bestFollowUpAnswer, riskAddressed: challenge.riskAddressed, nextEvidence: challenge.nextEvidence });
     setMissionStatus(challenge.quality?.toLowerCase() === 'unsafe' ? 'Escalated' : 'Follow-Up Submitted', 78);
     setPhase('followUpFeedback');
   };
