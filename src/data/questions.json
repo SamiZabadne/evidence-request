@@ -46,7 +46,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -56,7 +56,138 @@
             "1": "Trap. Marketing material does not prove control operation.",
             "2": "Trap. User lists alone do not show who approved access.",
             "3": "Correct. Workflow evidence supports design and operation of the process."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional company Northbridge Retail says new hires get account access in under 2 hours. As auditor, you need evidence that access provisioning is controlled.",
+            "auditObjective": "Validate Mission 1.1: AC-1 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Annex A 5.15",
+            "ISO/IEC 27001:2022 Annex A 5.16",
+            "NIST SP 800-53 AC-2, AC-6",
+            "SOC 2 CC6.1, CC6.2"
+          ],
+          "consultantDebrief": {
+            "riskType": "Unauthorized access risk",
+            "assetsInvolved": "Production databases, key management service, admin portals",
+            "dataInvolved": "Configuration baselines, encryption states, privileged actions",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Annex A 5.15",
+              "ISO/IEC 27001:2022 Annex A 5.16",
+              "NIST SP 800-53 AC-2, AC-6",
+              "SOC 2 CC6.1, CC6.2"
+            ],
+            "fundamentalsLesson": "Least privilege means users receive only the access needed for their role. Need-to-know and joiner/mover/leaver processes reduce unauthorized access risk. Periodic access reviews verify approvals remain valid and stale access is removed."
+          },
+          "fundamentalsLesson": "Least privilege means users receive only the access needed for their role. Need-to-know and joiner/mover/leaver processes reduce unauthorized access risk. Periodic access reviews verify approvals remain valid and stale access is removed.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "Signed access request tickets approved by line managers for the last 3 months",
+              "clientResponse": "Thanks, we can share 'Signed access request tickets approved by line managers for the last 3 months', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Signed access request tickets approved by line managers for the last 3 months' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "A marketing slide saying onboarding is fast",
+              "clientResponse": "We can provide a marketing slide saying onboarding is fast, but this is mostly contextual and does not demonstrate control effectiveness.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A marketing slide saying onboarding is fast' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "weak"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "A list of all employees with no approval trail",
+              "clientResponse": "Thanks, we can share 'A list of all employees with no approval trail', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A list of all employees with no approval trail' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "IAM workflow screenshots showing approval gates",
+              "clientResponse": "We can provide iam workflow screenshots showing approval gates, but this is mostly contextual and does not demonstrate control effectiveness.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'IAM workflow screenshots showing approval gates' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 1,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            }
+          ]
         },
         {
           "id": "ac-2",
@@ -99,7 +230,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -109,7 +240,138 @@
             "1": "Trap. Personal opinion is not auditable evidence.",
             "2": "Correct. Role mapping supports least privilege design.",
             "3": "Trap. Uncontextualized screenshots are weak evidence."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional fintech OrbitPay states privileged access is tightly managed.",
+            "auditObjective": "Validate Mission 1.2: AC-2 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Annex A 5.16",
+            "ISO/IEC 27001:2022 Annex A 5.15",
+            "NIST SP 800-53 AC-2, AC-6",
+            "SOC 2 CC6.1, CC6.2"
+          ],
+          "consultantDebrief": {
+            "riskType": "Unauthorized access risk",
+            "assetsInvolved": "Production databases, key management service, admin portals",
+            "dataInvolved": "Incident timelines, triage notes, monitoring telemetry",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Annex A 5.16",
+              "ISO/IEC 27001:2022 Annex A 5.15",
+              "NIST SP 800-53 AC-2, AC-6",
+              "SOC 2 CC6.1, CC6.2"
+            ],
+            "fundamentalsLesson": "Least privilege means users receive only the access needed for their role. Need-to-know and joiner/mover/leaver processes reduce unauthorized access risk. Periodic access reviews verify approvals remain valid and stale access is removed."
+          },
+          "fundamentalsLesson": "Least privilege means users receive only the access needed for their role. Need-to-know and joiner/mover/leaver processes reduce unauthorized access risk. Periodic access reviews verify approvals remain valid and stale access is removed.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "PAM checkout logs for admin accounts",
+              "clientResponse": "Thanks, we can share 'PAM checkout logs for admin accounts', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'PAM checkout logs for admin accounts' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "Developer opinion that admins are trustworthy",
+              "clientResponse": "We can provide developer opinion that admins are trustworthy, but this is mostly contextual and does not demonstrate control effectiveness.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Developer opinion that admins are trustworthy' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "weak"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "Role matrix mapping privileged roles to job functions",
+              "clientResponse": "Thanks, we can share 'Role matrix mapping privileged roles to job functions', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Role matrix mapping privileged roles to job functions' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "Random screenshot of a server console",
+              "clientResponse": "We can provide random screenshot of a server console, but this is mostly contextual and does not demonstrate control effectiveness.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Random screenshot of a server console' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "weak"
+              }
+            }
+          ]
         },
         {
           "id": "ac-3",
@@ -152,7 +414,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -162,7 +424,140 @@
             "1": "Trap. Policy alone does not prove the control operated.",
             "2": "Correct. Offboarding tickets provide operational traceability.",
             "3": "Trap. Informal assurances are not sufficient evidence."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional SaaS provider HelioDesk reports it revokes access immediately after terminations.",
+            "auditObjective": "Validate Mission 1.3: AC-3 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Annex A 5.18",
+            "ISO/IEC 27001:2022 Annex A 5.15",
+            "ISO/IEC 27001:2022 Annex A 5.16",
+            "NIST SP 800-53 AC-2, AC-6",
+            "SOC 2 CC6.1, CC6.2"
+          ],
+          "consultantDebrief": {
+            "riskType": "Detection and response delay risk",
+            "assetsInvolved": "SIEM, endpoint logs, cloud control plane",
+            "dataInvolved": "Access records, approval metadata, user role mappings",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Annex A 5.18",
+              "ISO/IEC 27001:2022 Annex A 5.15",
+              "ISO/IEC 27001:2022 Annex A 5.16",
+              "NIST SP 800-53 AC-2, AC-6",
+              "SOC 2 CC6.1, CC6.2"
+            ],
+            "fundamentalsLesson": "Least privilege means users receive only the access needed for their role. Need-to-know and joiner/mover/leaver processes reduce unauthorized access risk. Periodic access reviews verify approvals remain valid and stale access is removed."
+          },
+          "fundamentalsLesson": "Least privilege means users receive only the access needed for their role. Need-to-know and joiner/mover/leaver processes reduce unauthorized access risk. Periodic access reviews verify approvals remain valid and stale access is removed.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "HR termination list matched with account disable timestamps",
+              "clientResponse": "Thanks, we can share 'HR termination list matched with account disable timestamps', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'HR termination list matched with account disable timestamps' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "Policy document with no implementation records",
+              "clientResponse": "Thanks, we can share 'Policy document with no implementation records', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Policy document with no implementation records' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "Ticket evidence of offboarding tasks completion",
+              "clientResponse": "Thanks, we can share 'Ticket evidence of offboarding tasks completion', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Ticket evidence of offboarding tasks completion' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "An email saying 'trust us, it is immediate'",
+              "clientResponse": "We can provide an email saying 'trust us, it is immediate', but this is mostly contextual and does not demonstrate control effectiveness.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'An email saying 'trust us, it is immediate'' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "weak"
+              }
+            }
+          ]
         }
       ]
     },
@@ -212,7 +607,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -222,7 +617,138 @@
             "1": "Trap. A meeting invite does not show risk analysis quality.",
             "2": "Correct. Methodology approval demonstrates defined approach.",
             "3": "Trap. Missing dates weaken reliability and recency."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional logistics firm TerraFreight claims it performs quarterly risk assessments.",
+            "auditObjective": "Validate Mission 2.1: RM-1 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Clause 6.1.2",
+            "ISO/IEC 27001:2022 Clause 6.1.3",
+            "NIST SP 800-53 RA-3, PM-9",
+            "SOC 2 CC3.2, CC3.3"
+          ],
+          "consultantDebrief": {
+            "riskType": "Data exposure risk",
+            "assetsInvolved": "Production databases, key management service, admin portals",
+            "dataInvolved": "Risk ratings, treatment status, exception approvals",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Clause 6.1.2",
+              "ISO/IEC 27001:2022 Clause 6.1.3",
+              "NIST SP 800-53 RA-3, PM-9",
+              "SOC 2 CC3.2, CC3.3"
+            ],
+            "fundamentalsLesson": "Inherent risk is exposure before controls; residual risk is what remains after treatment. Risk treatment decisions require clear ownership and formal acceptance. Periodic documented reviews prove accountability and governance."
+          },
+          "fundamentalsLesson": "Inherent risk is exposure before controls; residual risk is what remains after treatment. Risk treatment decisions require clear ownership and formal acceptance. Periodic documented reviews prove accountability and governance.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "Latest risk register with owners and treatment status",
+              "clientResponse": "Thanks, we can share 'Latest risk register with owners and treatment status', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Latest risk register with owners and treatment status' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "Screenshot of a calendar invite named 'Risk Meeting'",
+              "clientResponse": "We can provide screenshot of a calendar invite named 'risk meeting', but this is mostly contextual and does not demonstrate control effectiveness.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Screenshot of a calendar invite named 'Risk Meeting'' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "weak"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "Risk methodology document approved by management",
+              "clientResponse": "Thanks, we can share 'Risk methodology document approved by management', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Risk methodology document approved by management' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "A spreadsheet with risks but no dates",
+              "clientResponse": "Thanks, we can share 'A spreadsheet with risks but no dates', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A spreadsheet with risks but no dates' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            }
+          ]
         },
         {
           "id": "rm-2",
@@ -265,7 +791,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -275,7 +801,138 @@
             "1": "Correct. Formal acceptance records are valid when treatment is not feasible.",
             "2": "Trap. Empty templates are not evidence of operation.",
             "3": "Trap. Verbal claims are insufficient."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional health app MedNova says all high risks have treatment plans.",
+            "auditObjective": "Validate Mission 2.2: RM-2 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Clause 6.1.3",
+            "ISO/IEC 27001:2022 Clause 6.1.2",
+            "NIST SP 800-53 RA-3, PM-9",
+            "SOC 2 CC3.2, CC3.3"
+          ],
+          "consultantDebrief": {
+            "riskType": "Unauthorized access risk",
+            "assetsInvolved": "Risk register, treatment workflow, management approvals",
+            "dataInvolved": "Incident timelines, triage notes, monitoring telemetry",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Clause 6.1.3",
+              "ISO/IEC 27001:2022 Clause 6.1.2",
+              "NIST SP 800-53 RA-3, PM-9",
+              "SOC 2 CC3.2, CC3.3"
+            ],
+            "fundamentalsLesson": "Inherent risk is exposure before controls; residual risk is what remains after treatment. Risk treatment decisions require clear ownership and formal acceptance. Periodic documented reviews prove accountability and governance."
+          },
+          "fundamentalsLesson": "Inherent risk is exposure before controls; residual risk is what remains after treatment. Risk treatment decisions require clear ownership and formal acceptance. Periodic documented reviews prove accountability and governance.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "Risk treatment plan linked to high-risk entries",
+              "clientResponse": "Thanks, we can share 'Risk treatment plan linked to high-risk entries', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Risk treatment plan linked to high-risk entries' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "Board minutes approving residual risk acceptance",
+              "clientResponse": "Thanks, we can share 'Board minutes approving residual risk acceptance', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Board minutes approving residual risk acceptance' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "A generic template with blank fields",
+              "clientResponse": "We can provide a generic template with blank fields, but this is mostly contextual and does not demonstrate control effectiveness.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A generic template with blank fields' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "weak"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "Verbal statement from CTO",
+              "clientResponse": "We can provide verbal statement from cto, but this is mostly contextual and does not demonstrate control effectiveness.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Verbal statement from CTO' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "weak"
+              }
+            }
+          ]
         },
         {
           "id": "rm-3",
@@ -318,7 +975,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -328,7 +985,140 @@
             "1": "Trap. Outdated reports do not prove ongoing reassessment.",
             "2": "Correct. Review notes can verify decisions and actions.",
             "3": "Trap. Awareness artifacts are not control evidence."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional manufacturer BlueForge says risks are reassessed after major changes.",
+            "auditObjective": "Validate Mission 2.3: RM-3 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Clause 8.2",
+            "ISO/IEC 27001:2022 Clause 6.1.2",
+            "ISO/IEC 27001:2022 Clause 6.1.3",
+            "NIST SP 800-53 RA-3, PM-9",
+            "SOC 2 CC3.2, CC3.3"
+          ],
+          "consultantDebrief": {
+            "riskType": "Detection and response delay risk",
+            "assetsInvolved": "Risk register, treatment workflow, management approvals",
+            "dataInvolved": "Access records, approval metadata, user role mappings",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Clause 8.2",
+              "ISO/IEC 27001:2022 Clause 6.1.2",
+              "ISO/IEC 27001:2022 Clause 6.1.3",
+              "NIST SP 800-53 RA-3, PM-9",
+              "SOC 2 CC3.2, CC3.3"
+            ],
+            "fundamentalsLesson": "Inherent risk is exposure before controls; residual risk is what remains after treatment. Risk treatment decisions require clear ownership and formal acceptance. Periodic documented reviews prove accountability and governance."
+          },
+          "fundamentalsLesson": "Inherent risk is exposure before controls; residual risk is what remains after treatment. Risk treatment decisions require clear ownership and formal acceptance. Periodic documented reviews prove accountability and governance.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "Change records with attached risk reassessment",
+              "clientResponse": "Thanks, we can share 'Change records with attached risk reassessment', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Change records with attached risk reassessment' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "Old risk report from last year only",
+              "clientResponse": "Thanks, we can share 'Old risk report from last year only', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Old risk report from last year only' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "Post-project review notes including risk update decisions",
+              "clientResponse": "Thanks, we can share 'Post-project review notes including risk update decisions', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Post-project review notes including risk update decisions' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "A poster saying 'Security First'",
+              "clientResponse": "Thanks, we can share 'A poster saying 'Security First'', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A poster saying 'Security First'' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            }
+          ]
         }
       ]
     },
@@ -378,7 +1168,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -388,7 +1178,138 @@
             "1": "Trap. Chat snippets are incomplete and unaudited.",
             "2": "Correct. Procedure defines expected handling approach.",
             "3": "Trap. Private notes are not controlled evidence."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional media company BrightWave says all incidents are logged and categorized.",
+            "auditObjective": "Validate Mission 3.1: IM-1 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Annex A 5.24",
+            "ISO/IEC 27001:2022 Annex A 5.24-5.27",
+            "NIST SP 800-61r2",
+            "SOC 2 CC7.4"
+          ],
+          "consultantDebrief": {
+            "riskType": "Data exposure risk",
+            "assetsInvolved": "Production databases, key management service, admin portals",
+            "dataInvolved": "Risk ratings, treatment status, exception approvals",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Annex A 5.24",
+              "ISO/IEC 27001:2022 Annex A 5.24-5.27",
+              "NIST SP 800-61r2",
+              "SOC 2 CC7.4"
+            ],
+            "fundamentalsLesson": "Incident management requires clear severity classification, timely escalation, root cause analysis, and lessons learned. Closure evidence should show remediation, validation, and management sign-off."
+          },
+          "fundamentalsLesson": "Incident management requires clear severity classification, timely escalation, root cause analysis, and lessons learned. Closure evidence should show remediation, validation, and management sign-off.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "Incident register with severity and closure dates",
+              "clientResponse": "Thanks, we can share 'Incident register with severity and closure dates', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Incident register with severity and closure dates' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "Screenshot of team chat discussing an outage",
+              "clientResponse": "We can provide screenshot of team chat discussing an outage, but this is mostly contextual and does not demonstrate control effectiveness.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Screenshot of team chat discussing an outage' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "weak"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "Incident handling procedure",
+              "clientResponse": "Thanks, we can share 'Incident handling procedure', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Incident handling procedure' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "A personal notebook of one analyst",
+              "clientResponse": "Thanks, we can share 'A personal notebook of one analyst', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A personal notebook of one analyst' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            }
+          ]
         },
         {
           "id": "im-2",
@@ -431,7 +1352,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -441,7 +1362,138 @@
             "1": "Correct. Dashboards can summarize performance trends.",
             "2": "Trap. Unsupported statements are weak evidence.",
             "3": "Trap. Blank templates do not show operation."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional insurer HarborShield claims incidents are triaged within SLA.",
+            "auditObjective": "Validate Mission 3.2: IM-2 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Annex A 5.25",
+            "ISO/IEC 27001:2022 Annex A 5.24-5.27",
+            "NIST SP 800-61r2",
+            "SOC 2 CC7.4"
+          ],
+          "consultantDebrief": {
+            "riskType": "Unauthorized access risk",
+            "assetsInvolved": "Risk register, treatment workflow, management approvals",
+            "dataInvolved": "Incident timelines, triage notes, monitoring telemetry",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Annex A 5.25",
+              "ISO/IEC 27001:2022 Annex A 5.24-5.27",
+              "NIST SP 800-61r2",
+              "SOC 2 CC7.4"
+            ],
+            "fundamentalsLesson": "Incident management requires clear severity classification, timely escalation, root cause analysis, and lessons learned. Closure evidence should show remediation, validation, and management sign-off."
+          },
+          "fundamentalsLesson": "Incident management requires clear severity classification, timely escalation, root cause analysis, and lessons learned. Closure evidence should show remediation, validation, and management sign-off.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "Ticket timestamps showing detection-to-triage times",
+              "clientResponse": "Thanks, we can share 'Ticket timestamps showing detection-to-triage times', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Ticket timestamps showing detection-to-triage times' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "SLA dashboard export for incident queue",
+              "clientResponse": "Thanks, we can share 'SLA dashboard export for incident queue', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'SLA dashboard export for incident queue' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "A statement: 'we always triage quickly'",
+              "clientResponse": "Thanks, we can share 'A statement: 'we always triage quickly'', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A statement: 'we always triage quickly'' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "An empty incident template",
+              "clientResponse": "Thanks, we can share 'An empty incident template', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'An empty incident template' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            }
+          ]
         },
         {
           "id": "im-3",
@@ -484,7 +1536,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -494,7 +1546,138 @@
             "1": "Trap. This indicates ineffectiveness, not evidence of control.",
             "2": "Correct. Action tickets demonstrate follow-through.",
             "3": "Trap. Photos do not evidence outcomes."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional cloud startup AeroStack says lessons learned are captured after incidents.",
+            "auditObjective": "Validate Mission 3.3: IM-3 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Annex A 5.26",
+            "ISO/IEC 27001:2022 Annex A 5.24-5.27",
+            "NIST SP 800-61r2",
+            "SOC 2 CC7.4"
+          ],
+          "consultantDebrief": {
+            "riskType": "Data exposure risk",
+            "assetsInvolved": "Risk register, treatment workflow, management approvals",
+            "dataInvolved": "Incident timelines, triage notes, monitoring telemetry",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Annex A 5.26",
+              "ISO/IEC 27001:2022 Annex A 5.24-5.27",
+              "NIST SP 800-61r2",
+              "SOC 2 CC7.4"
+            ],
+            "fundamentalsLesson": "Incident management requires clear severity classification, timely escalation, root cause analysis, and lessons learned. Closure evidence should show remediation, validation, and management sign-off."
+          },
+          "fundamentalsLesson": "Incident management requires clear severity classification, timely escalation, root cause analysis, and lessons learned. Closure evidence should show remediation, validation, and management sign-off.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "Post-incident reports with root cause and actions",
+              "clientResponse": "Thanks, we can share 'Post-incident reports with root cause and actions', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Post-incident reports with root cause and actions' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "Repeated incidents with no remediation tracking",
+              "clientResponse": "Thanks, we can share 'Repeated incidents with no remediation tracking', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Repeated incidents with no remediation tracking' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "Evidence of corrective-action tickets created from PIR outcomes",
+              "clientResponse": "Thanks, we can share 'Evidence of corrective-action tickets created from PIR outcomes', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Evidence of corrective-action tickets created from PIR outcomes' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "A team photo from the retrospective",
+              "clientResponse": "Thanks, we can share 'A team photo from the retrospective', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A team photo from the retrospective' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            }
+          ]
         }
       ]
     },
@@ -544,7 +1727,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -554,7 +1737,138 @@
             "1": "Trap. Single host logs cannot prove centralized logging.",
             "2": "Correct. Standard supports control design expectations.",
             "3": "Trap. Informal comments are not evidence."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional e-commerce platform PixelCart says critical systems are centrally logged.",
+            "auditObjective": "Validate Mission 4.1: LM-1 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Annex A 8.15",
+            "ISO/IEC 27001:2022 Annex A 8.15, 8.16",
+            "NIST SP 800-53 AU-2, AU-6, SI-4",
+            "SOC 2 CC7.2"
+          ],
+          "consultantDebrief": {
+            "riskType": "Governance and oversight risk",
+            "assetsInvolved": "Identity platform, HRIS, ticketing system",
+            "dataInvolved": "Risk ratings, treatment status, exception approvals",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Annex A 8.15",
+              "ISO/IEC 27001:2022 Annex A 8.15, 8.16",
+              "NIST SP 800-53 AU-2, AU-6, SI-4",
+              "SOC 2 CC7.2"
+            ],
+            "fundamentalsLesson": "Logs provide detection signals, investigation timelines, and accountability for actions in systems. Effective monitoring requires retention, alert triage, and evidence that suspicious events are investigated and closed."
+          },
+          "fundamentalsLesson": "Logs provide detection signals, investigation timelines, and accountability for actions in systems. Effective monitoring requires retention, alert triage, and evidence that suspicious events are investigated and closed.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "SIEM ingestion report for critical assets",
+              "clientResponse": "Thanks, we can share 'SIEM ingestion report for critical assets', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'SIEM ingestion report for critical assets' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "One local server log file with no retention details",
+              "clientResponse": "Thanks, we can share 'One local server log file with no retention details', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'One local server log file with no retention details' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "Logging standard defining what events must be captured",
+              "clientResponse": "Thanks, we can share 'Logging standard defining what events must be captured', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Logging standard defining what events must be captured' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "Engineer comment that logs are probably enabled",
+              "clientResponse": "Thanks, we can share 'Engineer comment that logs are probably enabled', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Engineer comment that logs are probably enabled' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            }
+          ]
         },
         {
           "id": "lm-2",
@@ -597,7 +1911,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -607,7 +1921,138 @@
             "1": "Trap. Single examples cannot prove routine process execution.",
             "2": "Correct. Runbook supports consistency of response steps.",
             "3": "Trap. Alert volumes alone do not prove review."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional biotech firm GeneTrail claims suspicious activity alerts are reviewed daily.",
+            "auditObjective": "Validate Mission 4.2: LM-2 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Annex A 8.16",
+            "ISO/IEC 27001:2022 Annex A 8.15, 8.16",
+            "NIST SP 800-53 AU-2, AU-6, SI-4",
+            "SOC 2 CC7.2"
+          ],
+          "consultantDebrief": {
+            "riskType": "Detection and response delay risk",
+            "assetsInvolved": "Production databases, key management service, admin portals",
+            "dataInvolved": "Risk ratings, treatment status, exception approvals",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Annex A 8.16",
+              "ISO/IEC 27001:2022 Annex A 8.15, 8.16",
+              "NIST SP 800-53 AU-2, AU-6, SI-4",
+              "SOC 2 CC7.2"
+            ],
+            "fundamentalsLesson": "Logs provide detection signals, investigation timelines, and accountability for actions in systems. Effective monitoring requires retention, alert triage, and evidence that suspicious events are investigated and closed."
+          },
+          "fundamentalsLesson": "Logs provide detection signals, investigation timelines, and accountability for actions in systems. Effective monitoring requires retention, alert triage, and evidence that suspicious events are investigated and closed.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "Alert review queue with analyst assignments and timestamps",
+              "clientResponse": "Thanks, we can share 'Alert review queue with analyst assignments and timestamps', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Alert review queue with analyst assignments and timestamps' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "A screenshot of one high-severity alert only",
+              "clientResponse": "We can provide a screenshot of one high-severity alert only, but this is mostly contextual and does not demonstrate control effectiveness.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A screenshot of one high-severity alert only' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "weak"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "SOC runbook for alert handling",
+              "clientResponse": "Thanks, we can share 'SOC runbook for alert handling', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'SOC runbook for alert handling' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "Noisy alert count with no review records",
+              "clientResponse": "Thanks, we can share 'Noisy alert count with no review records', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Noisy alert count with no review records' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            }
+          ]
         },
         {
           "id": "lm-3",
@@ -650,7 +2095,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -660,7 +2105,138 @@
             "1": "Correct. Closed drift alerts show ongoing maintenance.",
             "2": "Trap. Old diagrams are not current control evidence.",
             "3": "Trap. Memory is non-verifiable."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional enterprise NovaLedger says system clocks are synchronized for log integrity.",
+            "auditObjective": "Validate Mission 4.3: LM-3 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Annex A 8.17",
+            "ISO/IEC 27001:2022 Annex A 8.15, 8.16",
+            "NIST SP 800-53 AU-2, AU-6, SI-4",
+            "SOC 2 CC7.2"
+          ],
+          "consultantDebrief": {
+            "riskType": "Data exposure risk",
+            "assetsInvolved": "SIEM, endpoint logs, cloud control plane",
+            "dataInvolved": "Access records, approval metadata, user role mappings",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Annex A 8.17",
+              "ISO/IEC 27001:2022 Annex A 8.15, 8.16",
+              "NIST SP 800-53 AU-2, AU-6, SI-4",
+              "SOC 2 CC7.2"
+            ],
+            "fundamentalsLesson": "Logs provide detection signals, investigation timelines, and accountability for actions in systems. Effective monitoring requires retention, alert triage, and evidence that suspicious events are investigated and closed."
+          },
+          "fundamentalsLesson": "Logs provide detection signals, investigation timelines, and accountability for actions in systems. Effective monitoring requires retention, alert triage, and evidence that suspicious events are investigated and closed.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "NTP configuration evidence from representative systems",
+              "clientResponse": "Thanks, we can share 'NTP configuration evidence from representative systems', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'NTP configuration evidence from representative systems' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "Monitoring report showing drift exceptions closed",
+              "clientResponse": "Thanks, we can share 'Monitoring report showing drift exceptions closed', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Monitoring report showing drift exceptions closed' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "A network diagram from three years ago",
+              "clientResponse": "Thanks, we can share 'A network diagram from three years ago', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A network diagram from three years ago' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "Analyst memory of setup during migration",
+              "clientResponse": "Thanks, we can share 'Analyst memory of setup during migration', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Analyst memory of setup during migration' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            }
+          ]
         }
       ]
     },
@@ -710,7 +2286,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -720,7 +2296,140 @@
             "1": "Trap. Vendor brochures are not organization-specific evidence.",
             "2": "Correct. Policy ownership mapping supports governance.",
             "3": "Trap. Generic screenshots lack control context."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional analytics provider SkyMetric says cloud shared-responsibility is clearly managed.",
+            "auditObjective": "Validate Mission 5.1: CS-1 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Annex A 5.23",
+            "ISO/IEC 27001:2022 Annex A 5.23, 8.9",
+            "CSA CCM",
+            "NIST SP 800-53 CA-7, CM-8",
+            "SOC 2 CC9.2"
+          ],
+          "consultantDebrief": {
+            "riskType": "Governance and oversight risk",
+            "assetsInvolved": "Risk register, treatment workflow, management approvals",
+            "dataInvolved": "Incident timelines, triage notes, monitoring telemetry",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Annex A 5.23",
+              "ISO/IEC 27001:2022 Annex A 5.23, 8.9",
+              "CSA CCM",
+              "NIST SP 800-53 CA-7, CM-8",
+              "SOC 2 CC9.2"
+            ],
+            "fundamentalsLesson": "Cloud security follows a shared responsibility model where provider and customer controls both matter. Auditors need cloud inventory, provider assurance, and customer-side configuration evidence to validate governance."
+          },
+          "fundamentalsLesson": "Cloud security follows a shared responsibility model where provider and customer controls both matter. Auditors need cloud inventory, provider assurance, and customer-side configuration evidence to validate governance.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "Cloud responsibility matrix signed by security and platform teams",
+              "clientResponse": "Thanks, we can share 'Cloud responsibility matrix signed by security and platform teams', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Cloud responsibility matrix signed by security and platform teams' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "Cloud provider marketing brochure",
+              "clientResponse": "Thanks, we can share 'Cloud provider marketing brochure', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Cloud provider marketing brochure' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "Internal policy section assigning control owners",
+              "clientResponse": "Thanks, we can share 'Internal policy section assigning control owners', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Internal policy section assigning control owners' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "A random screenshot of cloud console home page",
+              "clientResponse": "We can provide a random screenshot of cloud console home page, but this is mostly contextual and does not demonstrate control effectiveness.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A random screenshot of cloud console home page' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "weak"
+              }
+            }
+          ]
         },
         {
           "id": "cs-2",
@@ -763,7 +2472,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -773,7 +2482,140 @@
             "1": "Correct. Exception governance demonstrates managed deviations.",
             "2": "Trap. Single-resource snapshots are insufficient.",
             "3": "Trap. Uncontrolled documents are weak evidence."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional travel app RoutePilot claims cloud configuration baselines are enforced.",
+            "auditObjective": "Validate Mission 5.2: CS-2 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Annex A 8.9",
+            "ISO/IEC 27001:2022 Annex A 5.23, 8.9",
+            "CSA CCM",
+            "NIST SP 800-53 CA-7, CM-8",
+            "SOC 2 CC9.2"
+          ],
+          "consultantDebrief": {
+            "riskType": "Data exposure risk",
+            "assetsInvolved": "Risk register, treatment workflow, management approvals",
+            "dataInvolved": "Risk ratings, treatment status, exception approvals",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Annex A 8.9",
+              "ISO/IEC 27001:2022 Annex A 5.23, 8.9",
+              "CSA CCM",
+              "NIST SP 800-53 CA-7, CM-8",
+              "SOC 2 CC9.2"
+            ],
+            "fundamentalsLesson": "Cloud security follows a shared responsibility model where provider and customer controls both matter. Auditors need cloud inventory, provider assurance, and customer-side configuration evidence to validate governance."
+          },
+          "fundamentalsLesson": "Cloud security follows a shared responsibility model where provider and customer controls both matter. Auditors need cloud inventory, provider assurance, and customer-side configuration evidence to validate governance.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "IaC repository showing approved secure baseline modules",
+              "clientResponse": "Thanks, we can share 'IaC repository showing approved secure baseline modules', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'IaC repository showing approved secure baseline modules' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "Exception register for baseline deviations with risk approvals",
+              "clientResponse": "Thanks, we can share 'Exception register for baseline deviations with risk approvals', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Exception register for baseline deviations with risk approvals' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "A screenshot of one secure VM setting",
+              "clientResponse": "We can provide a screenshot of one secure vm setting, but this is mostly contextual and does not demonstrate control effectiveness.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A screenshot of one secure VM setting' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "weak"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "An unversioned checklist with no owner",
+              "clientResponse": "Thanks, we can share 'An unversioned checklist with no owner', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'An unversioned checklist with no owner' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            }
+          ]
         },
         {
           "id": "cs-3",
@@ -816,7 +2658,7 @@
           "evidenceQualityRating": "Strong",
           "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
           "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
-          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling\u2014not just document existence.",
+          "consultantLesson": "Test recency, authorization, completeness, and confidentiality handling—not just document existence.",
           "points": {
             "evidence": 10,
             "followUp": 5
@@ -826,7 +2668,140 @@
             "1": "Correct. Config exports prove encryption status at scale.",
             "2": "Trap. Assumptions about defaults are unreliable.",
             "3": "Trap. Posters do not prove encryption controls."
-          }
+          },
+          "initialScenario": {
+            "clientClaim": "Fictional collaboration suite TeamHarbor says sensitive cloud data is protected with encryption.",
+            "auditObjective": "Validate Mission 5.3: CS-3 Control Verification using sufficient, appropriate, and secure evidence."
+          },
+          "frameworkMapping": [
+            "ISO/IEC 27001:2022 Annex A 8.12",
+            "ISO/IEC 27001:2022 Annex A 5.23, 8.9",
+            "CSA CCM",
+            "NIST SP 800-53 CA-7, CM-8",
+            "SOC 2 CC9.2"
+          ],
+          "consultantDebrief": {
+            "riskType": "Detection and response delay risk",
+            "assetsInvolved": "SIEM, endpoint logs, cloud control plane",
+            "dataInvolved": "Configuration baselines, encryption states, privileged actions",
+            "auditJudgment": "Control design appears defined; operating effectiveness depends on complete, current, approved evidence.",
+            "potentialFinding": "If supporting records remain outdated or incomplete, raise a minor nonconformity with corrective action tracking.",
+            "relevantFrameworkControls": [
+              "ISO/IEC 27001:2022 Annex A 8.12",
+              "ISO/IEC 27001:2022 Annex A 5.23, 8.9",
+              "CSA CCM",
+              "NIST SP 800-53 CA-7, CM-8",
+              "SOC 2 CC9.2"
+            ],
+            "fundamentalsLesson": "Cloud security follows a shared responsibility model where provider and customer controls both matter. Auditors need cloud inventory, provider assurance, and customer-side configuration evidence to validate governance."
+          },
+          "fundamentalsLesson": "Cloud security follows a shared responsibility model where provider and customer controls both matter. Auditors need cloud inventory, provider assurance, and customer-side configuration evidence to validate governance.",
+          "evidenceBranches": [
+            {
+              "optionIndex": 0,
+              "optionLabel": "KMS key policy and rotation evidence",
+              "clientResponse": "Thanks, we can share 'KMS key policy and rotation evidence', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'KMS key policy and rotation evidence' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 1,
+              "optionLabel": "Storage encryption settings export for production accounts",
+              "clientResponse": "Thanks, we can share 'Storage encryption settings export for production accounts', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Storage encryption settings export for production accounts' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 5,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "strong"
+              }
+            },
+            {
+              "optionIndex": 2,
+              "optionLabel": "Statement that 'cloud defaults are secure'",
+              "clientResponse": "Thanks, we can share 'Statement that 'cloud defaults are secure'', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'Statement that 'cloud defaults are secure'' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            },
+            {
+              "optionIndex": 3,
+              "optionLabel": "A cybersecurity awareness poster",
+              "clientResponse": "Thanks, we can share 'A cybersecurity awareness poster', but it may not fully prove control operation without source metadata and approvals.",
+              "followUpChallenge": {
+                "question": "What follow-up action best validates 'A cybersecurity awareness poster' as audit evidence?",
+                "options": [
+                  "Request latest approval/version history, sample source records, and remediation status tied to this evidence.",
+                  "Accept the evidence as-is because it is related to the topic.",
+                  "Replace testing with a management verbal confirmation.",
+                  "Close the control as effective without further corroboration."
+                ],
+                "bestAnswer": 0,
+                "feedback": {
+                  "0": "Strong follow-up: you improved evidence reliability, completeness, and traceability.",
+                  "1": "Weak follow-up: relevance alone does not prove operating effectiveness.",
+                  "2": "Weak follow-up: verbal statements are insufficient without objective records.",
+                  "3": "Weak follow-up: conclusions require corroborated evidence."
+                }
+              },
+              "scoringImpact": {
+                "evidenceScoreDelta": 0,
+                "followUpBestScore": 5,
+                "evidenceQualityImpact": "moderate"
+              }
+            }
+          ]
         }
       ]
     }
