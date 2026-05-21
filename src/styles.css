@@ -41,6 +41,10 @@ button.primary { background:#2463b3; }
 .mini-section { padding: 10px; }
 .mini-section p { color: #d8e7fa; }
 .panel.console pre { border-left: 3px solid #4ea9ff; }
+.instruction { color:#b9d7f7; font-size:.95rem; }
+.warning { color:#ffd091; background:#3c2a16; border:1px solid #8a6430; padding:8px; border-radius:8px; }
+.dialogue-card { border:1px solid #355076; border-radius:8px; padding:10px; margin-bottom:10px; background:#0f1b2c; }
+.dialogue-card blockquote { margin:4px 0 8px; padding:8px 10px; border-left:3px solid #52b6ff; background:#0b1522; }
 .quality-badge.quality-strong{ background:#1f5d3f; border-color:#3ac07a; }
 .quality-badge.quality-partial{ background:#5f4d19; border-color:#e3b24b; }
 .quality-badge.quality-weak,.quality-badge.quality-irrelevant{ background:#5d341d; border-color:#e38a4b; }

@@ -38,6 +38,51 @@ const modeBundle = (objective, rookieEvidence, consultantEvidence, leadEvidence,
   },
 });
 
+
+const minimumSelectionsByMode = { rookie: 2, consultant: 2, leadAuditor: 3, workshop: 2 };
+const qualityGuidance = {
+  Strong: 'defensible for both design and operating conclusions when coverage is complete',
+  Partial: 'helpful but not enough on its own for a final conclusion',
+  Weak: 'not defensible as primary audit evidence',
+  Unsafe: 'inappropriate and likely to create an unsupported conclusion',
+  Irrelevant: 'does not address the stated audit objective',
+};
+const enrichEvidence = (ev, objective) => {
+  const proves = ev.designOrOperating === 'Both' ? 'Design effectiveness and operating effectiveness for the selected sample.' : ev.designOrOperating === 'Design' ? 'Control design intent and ownership expectations.' : ev.designOrOperating === 'Operating' ? 'Control operation for specific events in the audit period.' : 'Very limited audit assertions.';
+  const limits = `It does not prove population completeness, exception closure, and consistency across the full audit period unless combined with additional evidence.`;
+  return {
+    ...ev,
+    why: `This evidence is ${ev.quality.toLowerCase()} because it addresses the objective to ${objective.toLowerCase()} and supports the assertion that controls were properly designed and/or operated during the audit period. It is ${qualityGuidance[ev.quality] || 'useful only with context'}. A junior consultant should learn to test approvals, timing, and traceability instead of accepting one artifact at face value. If this evidence is incomplete, residual risk remains that exceptions, out-of-period events, or excluded populations hide control failure. In a real client assessment, this is defensible only when sampling logic, period coverage, and exception handling are clearly documented.`,
+    betterRequest: `Please provide audit-period evidence for ${ev.text.toLowerCase()} for the named in-scope system(s), using a risk-based sample size that includes high-risk transactions and normal cases. Include required fields: request/record ID, requester or owner, approver name and timestamp, execution timestamp, affected asset or role, exception flag, and closure status. For exceptions or emergency cases, include retrospective approval, remediation owner, due date, and closure proof. Please include control-owner sign-off that the provided population is complete for the audit period.` ,
+    clientResponse: `We can share part of this request, but one source system is missing historical fields and some records were handled manually during a staffing gap, so the package may not include full exception closure detail for every item.`,
+    auditorNote: `This response introduces a completeness and reliability issue. Before concluding, confirm whether missing fields affect key assertions and request compensating evidence for manually handled items.`,
+    followUpOptions: ev.followUpOptions.length >=7 ? ev.followUpOptions : [
+      ev.bestFollowUpAnswer,
+      'Request a smaller sample now and defer the rest until planning closes.',
+      'Ask for policy-only support while waiting for operating records.',
+      'Accept the current pack because some fields are present.',
+      'Request an unrelated screenshot to keep the file moving.',
+      'Share raw records outside approved channels to speed review.',
+      'Raise a major finding immediately without validating exception handling.'
+    ],
+    followUpFeedback: `${ev.followUpFeedback} This answer should be judged against whether it closes completeness, approval, and timing gaps. The best answer is stronger because it requests defensible evidence tied to assertions, residual risk, and closure proof. A senior consultant would also validate population completeness and require documented rationale for any scope exclusion before finalizing control effectiveness.` ,
+    proves,
+    limits,
+  };
+};
+const enrichDebrief = (d) => ({
+  ...d,
+  consultantLesson: `${d.consultantLesson} Before asking for evidence, define what assertion you need to prove, what period is in scope, and what outcome would justify clarification versus a minor or major finding. This prevents broad requests and supports defensible audit judgments.`,
+  commonMistake: `${d.commonMistake} Junior consultants often stop once they receive a document that looks formal, but senior reviewers expect proof of design, operation, completeness, and exception closure during the audit period.`
+});
+const enrichFundamentals = (f) => ({
+  ...f,
+  whatItMeans: `${f.whatItMeans} In simple terms, the control must be clearly defined, consistently executed, and evidenced in a way an independent reviewer can verify.`,
+  whyAuditorsCare: `${f.whyAuditorsCare} During assessments, this determines whether the conclusion can withstand challenge from internal quality review or external stakeholders.`,
+  goodEvidence: `${f.goodEvidence} Strong evidence should include period coverage, ownership, approval/sign-off, exceptions, and remediation closure.`,
+  commonMistake: `${f.commonMistake} Another common issue is failing to reconcile multiple data sources before concluding completeness.`
+});
+
 const debrief = (riskType, assetsInvolved, dataInvolved, ciaImpact, auditJudgment, potentialFinding, recommendedFollowUp, consultantLesson, commonMistake) => ({
   riskType, assetsInvolved, dataInvolved, ciaImpact, auditJudgment, potentialFinding, recommendedFollowUp, consultantLesson, commonMistake,
 });
@@ -46,7 +91,7 @@ const fundamentals = (whatItMeans, whyAuditorsCare, riskReduced, goodEvidence, c
   whatItMeans, whyAuditorsCare, riskReduced, goodEvidence, commonMistake, analogy,
 });
 
-export const missions = [
+const baseMissions = [
   {
     id: 'IAM-001', domain: 'Identity & Access Management', missionName: 'The Identity Vault', riskLevel: 'High', difficulty: 'Intermediate', estimatedTime: '12 min', domainIcon: '🔐', frameworkTags: ['ISO27001 A.5', 'NIST PR.AC'],
     modeVariants: modeBundle(
@@ -137,3 +182,11 @@ export const missions = [
   },
 
 ];
+
+export const missions = baseMissions.map((m) => ({
+  ...m,
+  minimumSelections: { ...minimumSelectionsByMode, ...(m.minimumSelections || {}) },
+  modeVariants: Object.fromEntries(Object.entries(m.modeVariants).map(([k, v]) => [k, { ...v, evidenceOptions: v.evidenceOptions.map((ev) => enrichEvidence(ev, v.auditObjective || m.missionName)) }])),
+  consultantDebrief: enrichDebrief(m.consultantDebrief),
+  fundamentalsLesson: enrichFundamentals(m.fundamentalsLesson),
+}));
