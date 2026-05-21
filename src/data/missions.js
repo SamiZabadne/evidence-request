@@ -246,7 +246,50 @@ const baseMissions = [
 
 ];
 
-export const missions = baseMissions.map((m) => ({
+const reviewerMission = ({
+  id, domain, missionName, fictionalScenario, weakObservation, reviewerQuestion, answerOptions, bestAnswer, feedbackForEachOption, missedGaps, strongerObservation, strongerGapStatement, evidenceToRequest, maturityRatingChallenge, frameworkMappings, consultantLesson, commonMistake, fundamentalsLesson,
+}) => ({
+  id,
+  domain,
+  missionName,
+  scenarioType: 'CISO Review Challenge',
+  riskLevel: 'High',
+  difficulty: 'Reviewer',
+  estimatedTime: '9 min',
+  domainIcon: '🧠',
+  frameworkTags: frameworkMappings.map((m) => m.controlId),
+  modeVariants: modeBundle('Strengthen assessment quality through reviewer-led challenge.', answerOptions.slice(0, 7).map((x, idx) => e(`${id}-r${idx}`, x, 'Partial', 'Design', 1, 'Reviewer mode uses scenario analysis instead of client response.', 'What is wrong with this assessment?', answerOptions, bestAnswer, 'Use the strongest option that pinpoints the real assessment failure.', 'Reviewer challenge logic.', 'Select the option that best identifies the missing assurance element.', 'Assessment quality risk.', 'Use the reviewer feedback panel for stronger wording.')), answerOptions.slice(0, 7).map((x, idx) => e(`${id}-c${idx}`, x, 'Partial', 'Design', 1, 'Reviewer mode uses scenario analysis instead of client response.', 'What is wrong with this assessment?', answerOptions, bestAnswer, 'Use the strongest option that pinpoints the real assessment failure.', 'Reviewer challenge logic.', 'Select the option that best identifies the missing assurance element.', 'Assessment quality risk.', 'Use the reviewer feedback panel for stronger wording.')), answerOptions.slice(0, 7).map((x, idx) => e(`${id}-l${idx}`, x, 'Partial', 'Design', 1, 'Reviewer mode uses scenario analysis instead of client response.', 'What is wrong with this assessment?', answerOptions, bestAnswer, 'Use the strongest option that pinpoints the real assessment failure.', 'Reviewer challenge logic.', 'Select the option that best identifies the missing assurance element.', 'Assessment quality risk.', 'Use the reviewer feedback panel for stronger wording.')), answerOptions.slice(0, 7).map((x, idx) => e(`${id}-w${idx}`, x, 'Partial', 'Design', 1, 'Reviewer mode uses scenario analysis instead of client response.', 'What is wrong with this assessment?', answerOptions, bestAnswer, 'Use the strongest option that pinpoints the real assessment failure.', 'Reviewer challenge logic.', 'Select the option that best identifies the missing assurance element.', 'Assessment quality risk.', 'Use the reviewer feedback panel for stronger wording.'))),
+  reviewerChallenge: { id, domain, missionName, scenarioType: 'CISO Review Challenge', fictionalScenario, weakObservation, reviewerQuestion, answerOptions, bestAnswer, feedbackForEachOption, missedGaps, strongerObservation, strongerGapStatement, evidenceToRequest, maturityRatingChallenge, frameworkMappings, consultantLesson, commonMistake, fundamentalsLesson },
+  consultantDebrief: debrief('Weak assessment quality', ['UtilityCo', 'IndustrialCo'], 'Observation and gap statements', 'Integrity impact on audit conclusions.', 'Reviewer mode checks whether conclusions are evidence-based and clause-aligned.', 'Potential finding: unsupported or misaligned consultant conclusion.', 'Rewrite observation/gap with evidence-linked wording and rating rationale.', consultantLesson, commonMistake),
+  fundamentalsLesson: fundamentals(fundamentalsLesson, 'Reviewers test reasoning quality, not document quantity.', 'Unsupported ratings and copy-paste findings.', 'Specific clause-aligned observations, explicit gaps, risk linkage, and targeted evidence asks.', commonMistake, 'Like quality-checking a diagnosis before prescribing treatment.'),
+  frameworkMappings,
+  evidenceOptions: [],
+});
+
+const reviewerChallenges = [
+  'Context Analysis Is Not a Policy Section','Interested Parties Are Not Roles','Broad Policy Scope Is Not ISMS Scope','Vulnerability Management Is Not the Whole ISMS','Strategy Document Is Not Leadership Commitment','Policy Inventory Is Not Policy Assessment','Stakeholders Are Not ISMS Role Assignments','Risk Register Exists, But Is It Reviewed?','SoA Self-Assessment Is Not a Proper Treatment Plan','KPI Under Development Is Not a Measurable Objective','IT Change Management Is Not ISMS Change Planning','Org Chart Is Not Resource Adequacy','Training Completion Is Not Competence Management','Awareness Training But No Contractor Coverage','Reporting Structure Is Not a Communication Plan','Document Approval Is Not Document Control','Remediation Tracker Is Not Internal Audit','Board Reporting Is Not Management Review','Remediation Tracker Is Not Corrective Action','Supplier Onboarding Is Not Supplier Monitoring','Cloud Connectivity Issue Is Not Cloud Governance','RCA for P1 Is Not Lessons Learned Program','DFIR Retainer Is Not Chain of Custody','Backup Success Screenshot Is Not Recovery Evidence','CCTV Exists But Time Is Not Synchronized'
+].map((missionName, idx) => reviewerMission({
+  id: `CRC-${String(idx + 1).padStart(3, '0')}`,
+  domain: 'CISO Review Challenge',
+  missionName,
+  fictionalScenario: `At ${['UtilityCo', 'IndustrialCo', 'PublicSectorCo', 'EnergyGridCo', 'MetroWaterCo'][idx % 5]}, a junior consultant reviewed ${['Finance Application A', 'HR System B', 'ITSM Tool X', 'SIEM Platform Y', 'Cloud Tenant Z', 'OT Site A'][idx % 6]} and issued a weak assessment narrative.`,
+  weakObservation: 'The control appears partially addressed because related documents and verbal walkthroughs exist, so maturity is acceptable.',
+  reviewerQuestion: 'What is wrong with this assessment?',
+  answerOptions: ['It relies on generic wording and does not identify what was actually tested.', 'It confuses observation, gap, and recommendation in one sentence.', 'It accepts stale or indirect evidence as current proof.', 'It does not ask for missing outputs required by the clause.', 'It fails to link evidence to risk impact and ISMS decisions.', 'It does not justify whether this is minor, major, observation, or follow-up.', 'It uses “partially addressed” without proving what is implemented.', 'All of the above weaknesses are present and require rewrite.'],
+  bestAnswer: 'All of the above weaknesses are present and require rewrite.',
+  feedbackForEachOption: { 'It relies on generic wording and does not identify what was actually tested.': 'Correct but incomplete: specificity is only one of several gaps.', 'It confuses observation, gap, and recommendation in one sentence.': 'Correct but incomplete: classification confusion is part of the issue.', 'It accepts stale or indirect evidence as current proof.': 'Correct but incomplete: timeliness and relevance both matter.', 'It does not ask for missing outputs required by the clause.': 'Correct but incomplete: missing evidence request is critical.', 'It fails to link evidence to risk impact and ISMS decisions.': 'Correct but incomplete: risk linkage is required.', 'It does not justify whether this is minor, major, observation, or follow-up.': 'Correct but incomplete: finding classification is missing.', 'It uses “partially addressed” without proving what is implemented.': 'Correct but incomplete: this phrase needs objective proof.', 'All of the above weaknesses are present and require rewrite.': 'Best answer: it captures the full reviewer concern pattern.' },
+  missedGaps: ['No clause-specific output tested.', 'No periodic review/trigger evidence requested.', 'No ownership/accountability proof captured.', 'No classification rationale for finding severity.'],
+  strongerObservation: 'Evidence reviewed was limited to high-level documents and interviews. Clause-specific outputs, review cadence evidence, and accountability records were not provided for the audit period.',
+  strongerGapStatement: 'The ISMS requirement is not demonstrated because objective, current, and clause-aligned evidence was not provided; therefore control operation and governance effectiveness cannot be concluded.',
+  evidenceToRequest: ['Current analysis output', 'Owner-approved records', 'Review cadence proof', 'Exception and corrective-action trail', 'Reassessment trigger criteria', 'In-scope population completeness', 'Management decision evidence'],
+  maturityRatingChallenge: 'Given only policy references and verbal confirmation, is a “Partially Implemented” rating defensible, or should it be downgraded pending objective evidence?',
+  frameworkMappings: [{ framework: 'ISO/IEC 27001:2022', controlId: `Clause ${[4, 5, 6, 7, 8, 9, 10][idx % 7]}`, controlName: 'ISMS requirement', relevance: 'Reviewer must confirm clause intent, evidence sufficiency, and defensible conclusions.' }],
+  consultantLesson: 'Separate observation, gap, risk, recommendation, and evidence request into distinct statements with clause alignment.',
+  commonMistake: 'Copying a generic “partially addressed” statement without proving what is actually implemented and effective.',
+  fundamentalsLesson: 'A defensible assessment requires current, relevant, sufficient, and clause-aligned evidence.',
+}));
+
+export const missions = [...baseMissions, ...reviewerChallenges].map((m) => ({
   ...m,
   minimumSelections: { ...minimumSelectionsByMode, ...(m.minimumSelections || {}) },
   modeVariants: Object.fromEntries(Object.entries(m.modeVariants).map(([k, v]) => {

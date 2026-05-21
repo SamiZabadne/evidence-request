@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { missions, MODES } from './data/missions';
 import { QUALITY_SCORE, getModeAwareEvidenceOptions, selectFollowUpEvidence, sortEvidenceByPriority } from './engine';
-import { AuditCommandLayout, ClientResponseConsole, ConsultantDebriefCard, EscalationMeter, EvidenceEvaluation, EvidenceSelection, FollowUpChallenge, FollowUpFeedbackPanel, FrameworkRelevanceCard, FundamentalsCard, MissionBrief, MissionQueuePanel, ProgressStepper, ScorePanel } from './components/GameComponents';
+import { AuditCommandLayout, ClientResponseConsole, ConsultantDebriefCard, EscalationMeter, EvidenceEvaluation, EvidenceSelection, FollowUpChallenge, FollowUpFeedbackPanel, FrameworkRelevanceCard, FundamentalsCard, MissionBrief, MissionQueuePanel, ProgressStepper, ReviewerChallengePanel, ReviewerFeedbackPanel, ScorePanel } from './components/GameComponents';
 
 const MODE_KEY = 'evidence-quest-mode';
 const statusFlow = ['New Mission', 'Evidence Requested', 'Client Responded', 'Follow-Up Submitted', 'Debrief Reviewed', 'Fundamentals Reviewed', 'Mission Complete', 'Escalated'];
@@ -25,7 +25,7 @@ export default function App() {
   const [statusByMission, setStatusByMission] = useState({});
   const [progressByMission, setProgressByMission] = useState({});
   const [followUpFeedback, setFollowUpFeedback] = useState(null);
-  const [filters, setFilters] = useState({ search: '', domain: 'all', risk: 'all', status: 'all' });
+  const [filters, setFilters] = useState({ search: '', scenarioType: 'all', domain: 'all', risk: 'all', status: 'all' });
   useEffect(() => localStorage.setItem(MODE_KEY, mode), [mode]);
 
   const mission = missions[missionIndex];
@@ -36,6 +36,7 @@ export default function App() {
   const challenge = useMemo(() => selectFollowUpEvidence(orderedEvaluated)?.evidence, [orderedEvaluated]);
   const avgQuality = useMemo(() => !orderedEvaluated.length ? 'N/A' : `${(orderedEvaluated.reduce((a, e) => a + (QUALITY_SCORE[e.quality] ?? 0), 0) / orderedEvaluated.length).toFixed(1)}/5`, [orderedEvaluated]);
   const minimumSelections = mission?.minimumSelections?.[mode] ?? (mode === 'leadAuditor' ? 3 : mode === 'rookie' ? 2 : 2);
+  const isReviewerMission = mission?.scenarioType === 'CISO Review Challenge';
 
   const rank = score > 60 ? 'Principal Auditor' : score > 30 ? 'Senior Consultant' : 'Associate';
   const setMissionStatus = (status, prog) => { setStatusByMission((s) => ({ ...s, [missionIndex]: status })); setProgressByMission((p) => ({ ...p, [missionIndex]: prog })); };
@@ -49,6 +50,13 @@ export default function App() {
     setMissionStatus(challenge.quality?.toLowerCase() === 'unsafe' ? 'Escalated' : 'Follow-Up Submitted', 78);
     setPhase('followUpFeedback');
   };
+  const submitReviewerChallenge = () => {
+    const challengeData = mission.reviewerChallenge;
+    const correct = selectedOption === challengeData.bestAnswer;
+    setScore((s) => s + (correct ? 7 : 2));
+    setMissionStatus('Follow-Up Submitted', 78);
+    setPhase('followUpFeedback');
+  };
   const finishMission = () => { setMissionStatus('Mission Complete', 100); setPhase('missionComplete'); };
 
   if (!mission) return <main className='page'><h1>Simulation Complete</h1><p>Final Score: {score}</p></main>;
@@ -58,12 +66,14 @@ export default function App() {
     left={<MissionQueuePanel missions={missions} current={missionIndex} statuses={missions.map((_, i) => statusByMission[i] || statusFlow[0])} progressByMission={progressByMission} onOpenMission={(idx) => { setMissionIndex(idx); resetMissionState(); }} filters={filters} setFilters={setFilters} />}
     right={<><ScorePanel score={score} avgQuality={avgQuality} rank={rank} /><EscalationMeter value={Object.values(statusByMission).filter((s) => s === 'Escalated').length * 15} /></>}
     center={<><ProgressStepper currentStep={stepIndex[phase]} />
-      {phase === 'brief' && <MissionBrief mission={mission} variant={variant} modeCfg={enhancedModes[mode]} onNext={() => { setMissionStatus('Evidence Requested', 35); setPhase('evidence'); }} />}
+      {phase === 'brief' && <MissionBrief mission={mission} variant={variant} modeCfg={enhancedModes[mode]} onNext={() => { setMissionStatus('Evidence Requested', 35); setPhase(isReviewerMission ? 'followUp' : 'evidence'); }} />}
       {phase === 'evidence' && <EvidenceSelection evidenceOptions={modeEvidence} selectedEvidence={selectedEvidence} setSelectedEvidence={setSelectedEvidence} onSubmit={submitEvidence} minimumSelections={minimumSelections} />}
       {phase === 'evaluation' && <><EvidenceEvaluation evaluated={orderedEvaluated} pointsById={Object.fromEntries(orderedEvaluated.map((e) => [e.id, Math.round(e.points * enhancedModes[mode].scoring)]))} /><button className='primary' onClick={() => setPhase('client')}>Review Client Responses</button></>}
       {phase === 'client' && <><ClientResponseConsole evaluated={orderedEvaluated} /><button className='primary' onClick={() => setPhase('followUp')}>Open Follow-Up Challenge</button></>}
-      {phase === 'followUp' && challenge && <FollowUpChallenge challenge={challenge} selectedOption={selectedOption} setSelectedOption={setSelectedOption} onSubmit={submitFollowUp} />}
-      {phase === 'followUpFeedback' && <FollowUpFeedbackPanel feedback={followUpFeedback} onContinue={() => setPhase('debrief')} />}
+      {phase === 'followUp' && !isReviewerMission && challenge && <FollowUpChallenge challenge={challenge} selectedOption={selectedOption} setSelectedOption={setSelectedOption} onSubmit={submitFollowUp} />}
+      {phase === 'followUp' && isReviewerMission && <ReviewerChallengePanel challenge={mission.reviewerChallenge} selectedOption={selectedOption} setSelectedOption={setSelectedOption} onSubmit={submitReviewerChallenge} />}
+      {phase === 'followUpFeedback' && !isReviewerMission && <FollowUpFeedbackPanel feedback={followUpFeedback} onContinue={() => setPhase('debrief')} />}
+      {phase === 'followUpFeedback' && isReviewerMission && <ReviewerFeedbackPanel challenge={mission.reviewerChallenge} selectedOption={selectedOption} onContinue={() => setPhase('debrief')} />}
       {phase === 'debrief' && <><ConsultantDebriefCard debrief={mission.consultantDebrief} /><button className='primary' onClick={() => { setMissionStatus('Debrief Reviewed', 86); setPhase('fundamentals'); }}>Continue</button></>}
       {phase === 'fundamentals' && <><FundamentalsCard lesson={mission.fundamentalsLesson} /><button className='primary' onClick={() => { setMissionStatus('Fundamentals Reviewed', 94); setPhase('framework'); }}>Continue</button></>}
       {phase === 'framework' && <><FrameworkRelevanceCard mappings={mission.frameworkMappings} /><div className='action-row'><button className='primary' onClick={finishMission}>Finish Mission</button><button onClick={() => { setPhase('brief'); }}>Return to Mission Queue</button><button onClick={() => { setMissionIndex(0); resetMissionState(); }}>Restart Queue</button></div></>}
