@@ -1,0 +1,14 @@
+{
+  "observation": "Sanitized observation summary",
+  "affectedDomain": "Identity & Access Management",
+  "clientClaim": "Fictional client claim",
+  "evidenceGap": "What is missing or insufficient",
+  "riskType": "Risk category",
+  "assetsInvolved": ["Asset A", "Asset B"],
+  "dataInvolved": "Data category",
+  "likelyFrameworkMappings": ["access-control", "privileged-access"],
+  "potentialFinding": "Draft finding statement",
+  "recommendedEvidenceRequests": ["Request 1", "Request 2"],
+  "curveballIdeas": ["Outdated policy", "Missing sign-off"],
+  "fundamentalsLesson": "Simple educational takeaway"
+}
