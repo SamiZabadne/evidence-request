@@ -4,7 +4,7 @@ import { QUALITY_SCORE, getModeAwareEvidenceOptions, selectFollowUpEvidence, sor
 import { AuditCommandLayout, ClientResponseConsole, ConsultantDebriefCard, EscalationMeter, EvidenceEvaluation, EvidenceSelection, FollowUpChallenge, FollowUpFeedbackPanel, FrameworkRelevanceCard, FundamentalsCard, MissionBrief, MissionQueuePanel, ProgressStepper, ScorePanel } from './components/GameComponents';
 
 const MODE_KEY = 'evidence-quest-mode';
-const statusFlow = ['New Mission', 'Evidence Requested', 'Client Responded', 'Follow-Up Required', 'Debrief Complete', 'Escalated'];
+const statusFlow = ['New Mission', 'Evidence Requested', 'Client Responded', 'Follow-Up Submitted', 'Debrief Reviewed', 'Fundamentals Reviewed', 'Mission Complete', 'Escalated'];
 const stepIndex = { brief: 0, evidence: 1, evaluation: 2, client: 3, followUp: 4, followUpFeedback: 4, debrief: 5, fundamentals: 6, framework: 7 };
 
 const enhancedModes = {
@@ -45,10 +45,10 @@ export default function App() {
     const correct = selectedOption === challenge.bestFollowUpAnswer;
     setScore((s) => s + (correct ? 5 : (mode === 'leadAuditor' ? -8 : -3)));
     setFollowUpFeedback({ correct, message: correct ? challenge.followUpFeedback : 'The answer missed the highest-risk unresolved concern.', strongerAsk: challenge.bestFollowUpAnswer, riskAddressed: challenge.riskAddressed, nextEvidence: challenge.nextEvidence });
-    setMissionStatus(challenge.quality?.toLowerCase() === 'unsafe' ? 'Escalated' : 'Follow-Up Required', 82);
+    setMissionStatus(challenge.quality?.toLowerCase() === 'unsafe' ? 'Escalated' : 'Follow-Up Submitted', 78);
     setPhase('followUpFeedback');
   };
-  const finishMission = () => { setMissionStatus('Debrief Complete', 100); };
+  const finishMission = () => { setMissionStatus('Mission Complete', 100); };
 
   if (!mission) return <main className='page'><h1>Simulation Complete</h1><p>Final Score: {score}</p></main>;
 
@@ -63,8 +63,8 @@ export default function App() {
       {phase === 'client' && <><ClientResponseConsole evaluated={orderedEvaluated} /><button className='primary' onClick={() => setPhase('followUp')}>Open Follow-Up Challenge</button></>}
       {phase === 'followUp' && challenge && <FollowUpChallenge challenge={challenge} selectedOption={selectedOption} setSelectedOption={setSelectedOption} onSubmit={submitFollowUp} />}
       {phase === 'followUpFeedback' && <FollowUpFeedbackPanel feedback={followUpFeedback} onContinue={() => setPhase('debrief')} />}
-      {phase === 'debrief' && <><ConsultantDebriefCard debrief={mission.consultantDebrief} /><button className='primary' onClick={() => setPhase('fundamentals')}>Continue</button></>}
-      {phase === 'fundamentals' && <><FundamentalsCard lesson={mission.fundamentalsLesson} /><button className='primary' onClick={() => setPhase('framework')}>Continue</button></>}
+      {phase === 'debrief' && <><ConsultantDebriefCard debrief={mission.consultantDebrief} /><button className='primary' onClick={() => { setMissionStatus('Debrief Reviewed', 86); setPhase('fundamentals'); }}>Continue</button></>}
+      {phase === 'fundamentals' && <><FundamentalsCard lesson={mission.fundamentalsLesson} /><button className='primary' onClick={() => { setMissionStatus('Fundamentals Reviewed', 94); setPhase('framework'); }}>Continue</button></>}
       {phase === 'framework' && <><FrameworkRelevanceCard mappings={mission.frameworkMappings} /><div className='action-row'><button className='primary' onClick={finishMission}>Finish Mission</button><button onClick={() => { setMissionIndex(0); resetMissionState(); }}>Return to Dashboard</button><button onClick={() => { finishMission(); setMissionIndex((i) => i + 1); resetMissionState(); }}>Next Mission</button></div></>}
     </>}
   /></main>;
