@@ -35,6 +35,7 @@ export default function App() {
   const orderedEvaluated = useMemo(() => sortEvidenceByPriority(evaluated), [evaluated]);
   const challenge = useMemo(() => selectFollowUpEvidence(orderedEvaluated)?.evidence, [orderedEvaluated]);
   const avgQuality = useMemo(() => !orderedEvaluated.length ? 'N/A' : `${(orderedEvaluated.reduce((a, e) => a + (QUALITY_SCORE[e.quality] ?? 0), 0) / orderedEvaluated.length).toFixed(1)}/5`, [orderedEvaluated]);
+  const minimumSelections = mission?.minimumSelections?.[mode] ?? (mode === 'leadAuditor' ? 3 : mode === 'rookie' ? 2 : 2);
 
   const rank = score > 60 ? 'Principal Auditor' : score > 30 ? 'Senior Consultant' : 'Associate';
   const setMissionStatus = (status, prog) => { setStatusByMission((s) => ({ ...s, [missionIndex]: status })); setProgressByMission((p) => ({ ...p, [missionIndex]: prog })); };
@@ -58,7 +59,7 @@ export default function App() {
     right={<><ScorePanel score={score} avgQuality={avgQuality} rank={rank} /><EscalationMeter value={Object.values(statusByMission).filter((s) => s === 'Escalated').length * 15} /></>}
     center={<><ProgressStepper currentStep={stepIndex[phase]} />
       {phase === 'brief' && <MissionBrief mission={mission} variant={variant} modeCfg={enhancedModes[mode]} onNext={() => { setMissionStatus('Evidence Requested', 35); setPhase('evidence'); }} />}
-      {phase === 'evidence' && <EvidenceSelection evidenceOptions={modeEvidence} selectedEvidence={selectedEvidence} setSelectedEvidence={setSelectedEvidence} onSubmit={submitEvidence} />}
+      {phase === 'evidence' && <EvidenceSelection evidenceOptions={modeEvidence} selectedEvidence={selectedEvidence} setSelectedEvidence={setSelectedEvidence} onSubmit={submitEvidence} minimumSelections={minimumSelections} />}
       {phase === 'evaluation' && <><EvidenceEvaluation evaluated={orderedEvaluated} pointsById={Object.fromEntries(orderedEvaluated.map((e) => [e.id, Math.round(e.points * enhancedModes[mode].scoring)]))} /><button className='primary' onClick={() => setPhase('client')}>Review Client Responses</button></>}
       {phase === 'client' && <><ClientResponseConsole evaluated={orderedEvaluated} /><button className='primary' onClick={() => setPhase('followUp')}>Open Follow-Up Challenge</button></>}
       {phase === 'followUp' && challenge && <FollowUpChallenge challenge={challenge} selectedOption={selectedOption} setSelectedOption={setSelectedOption} onSubmit={submitFollowUp} />}
