@@ -1,0 +1,62 @@
+[
+  {
+    "id": "governance",
+    "name": "Governance / ISMS Scope"
+  },
+  {
+    "id": "risk",
+    "name": "Risk Management"
+  },
+  {
+    "id": "asset",
+    "name": "Asset Management"
+  },
+  {
+    "id": "iam",
+    "name": "IAM / Remote Access"
+  },
+  {
+    "id": "siem",
+    "name": "Logging / SOC / SIEM"
+  },
+  {
+    "id": "network",
+    "name": "Network Security / Remote Access"
+  },
+  {
+    "id": "vuln",
+    "name": "Vulnerability / Patch / Pen Test"
+  },
+  {
+    "id": "thirdparty",
+    "name": "Third-Party / Supplier Security"
+  },
+  {
+    "id": "cloud",
+    "name": "Cloud Security / Data Protection"
+  },
+  {
+    "id": "incident",
+    "name": "Incident Management"
+  },
+  {
+    "id": "bcp",
+    "name": "BCP / DR / Backup"
+  },
+  {
+    "id": "change",
+    "name": "Change / Configuration / Capacity"
+  },
+  {
+    "id": "awareness",
+    "name": "Awareness / HR Security"
+  },
+  {
+    "id": "physical",
+    "name": "Physical Security"
+  },
+  {
+    "id": "data",
+    "name": "Data Security / Classification / DLP"
+  }
+]

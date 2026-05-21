@@ -1,0 +1,17 @@
+{
+  "prohibitedTerms": [
+    "Northstar",
+    "Apex",
+    "Acme",
+    "John",
+    "Jane",
+    "ticket #",
+    "INC-",
+    "SR-",
+    "192.168.",
+    "10.0.",
+    "password",
+    "secret key",
+    "production dump"
+  ]
+}

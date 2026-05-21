@@ -1,0 +1,14 @@
+{
+  "rookie": {
+    "complexity": "low"
+  },
+  "consultant": {
+    "complexity": "medium"
+  },
+  "leadAuditor": {
+    "complexity": "high"
+  },
+  "workshop": {
+    "complexity": "facilitated"
+  }
+}
