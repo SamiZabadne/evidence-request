@@ -1,108 +1,70 @@
 {
-  "levels": [
+  "missions": [
     {
-      "id": "access-control",
-      "name": "Access Control",
-      "badge": "A.5.15 / A.5.16",
-      "questions": [
+      "id": "AC-001",
+      "level": "Access Control",
+      "missionName": "The Identity Vault",
+      "isoReference": "ISO/IEC 27001:2022 A.5.15 - Access Control",
+      "clientScenario": "The client states that access to critical applications is reviewed quarterly by business owners.",
+      "evidenceOptions": [
         {
-          "id": "ac-1",
-          "isoReference": "ISO/IEC 27001:2022 Annex A 5.15",
-          "scenario": "Fictional company Northbridge Retail says new hires get account access in under 2 hours. As auditor, you need evidence that access provisioning is controlled.",
-          "options": [
-            "Signed access request tickets approved by line managers for the last 3 months",
-            "A marketing slide saying onboarding is fast",
-            "A list of all employees with no approval trail",
-            "IAM workflow screenshots showing approval gates"
-          ],
-          "correctAnswers": [0, 3],
-          "feedback": {
-            "0": "Correct. Approved access request records prove formal authorization.",
-            "1": "Trap. Marketing material does not prove control operation.",
-            "2": "Trap. User lists alone do not show who approved access.",
-            "3": "Correct. Workflow evidence supports design and operation of the process."
-          },
+          "id": "A",
+          "text": "Latest user access review report",
+          "type": "strong",
           "points": 10
         },
         {
-          "id": "ac-2",
-          "isoReference": "ISO/IEC 27001:2022 Annex A 5.16",
-          "scenario": "Fictional fintech OrbitPay states privileged access is tightly managed.",
-          "options": [
-            "PAM checkout logs for admin accounts",
-            "Developer opinion that admins are trustworthy",
-            "Role matrix mapping privileged roles to job functions",
-            "Random screenshot of a server console"
-          ],
-          "correctAnswers": [0, 2],
-          "feedback": {
-            "0": "Correct. PAM logs demonstrate actual privileged use and accountability.",
-            "1": "Trap. Personal opinion is not auditable evidence.",
-            "2": "Correct. Role mapping supports least privilege design.",
-            "3": "Trap. Uncontextualized screenshots are weak evidence."
-          },
+          "id": "B",
+          "text": "Reviewer approval or sign-off",
+          "type": "strong",
           "points": 10
         },
         {
-          "id": "ac-3",
-          "isoReference": "ISO/IEC 27001:2022 Annex A 5.18",
-          "scenario": "Fictional SaaS provider HelioDesk reports it revokes access immediately after terminations.",
-          "options": [
-            "HR termination list matched with account disable timestamps",
-            "Policy document with no implementation records",
-            "Ticket evidence of offboarding tasks completion",
-            "An email saying 'trust us, it is immediate'"
-          ],
-          "correctAnswers": [0, 2],
-          "feedback": {
-            "0": "Correct. Correlated HR and IAM data validates timely removal.",
-            "1": "Trap. Policy alone does not prove the control operated.",
-            "2": "Correct. Offboarding tickets provide operational traceability.",
-            "3": "Trap. Informal assurances are not sufficient evidence."
-          },
-          "points": 10
+          "id": "C",
+          "text": "Screenshot of the login page",
+          "type": "weak",
+          "points": -5
+        },
+        {
+          "id": "D",
+          "text": "List of user passwords",
+          "type": "unsafe",
+          "points": -25
         }
-      ]
-    },
-    {
-      "id": "risk-management",
-      "name": "Risk Management",
-      "badge": "Clause 6.1.2 / 6.1.3",
-      "questions": [
-        {"id":"rm-1","isoReference":"ISO/IEC 27001:2022 Clause 6.1.2","scenario":"Fictional logistics firm TerraFreight claims it performs quarterly risk assessments.","options":["Latest risk register with owners and treatment status","Screenshot of a calendar invite named 'Risk Meeting'","Risk methodology document approved by management","A spreadsheet with risks but no dates"],"correctAnswers":[0,2],"feedback":{"0":"Correct. A current risk register evidences recurring assessment output.","1":"Trap. A meeting invite does not show risk analysis quality.","2":"Correct. Methodology approval demonstrates defined approach.","3":"Trap. Missing dates weaken reliability and recency."},"points":10},
-        {"id":"rm-2","isoReference":"ISO/IEC 27001:2022 Clause 6.1.3","scenario":"Fictional health app MedNova says all high risks have treatment plans.","options":["Risk treatment plan linked to high-risk entries","Board minutes approving residual risk acceptance","A generic template with blank fields","Verbal statement from CTO"],"correctAnswers":[0,1],"feedback":{"0":"Correct. Linked treatment plans show actions for identified risks.","1":"Correct. Formal acceptance records are valid when treatment is not feasible.","2":"Trap. Empty templates are not evidence of operation.","3":"Trap. Verbal claims are insufficient."},"points":10},
-        {"id":"rm-3","isoReference":"ISO/IEC 27001:2022 Clause 8.2","scenario":"Fictional manufacturer BlueForge says risks are reassessed after major changes.","options":["Change records with attached risk reassessment","Old risk report from last year only","Post-project review notes including risk update decisions","A poster saying 'Security First'"],"correctAnswers":[0,2],"feedback":{"0":"Correct. This ties change management to risk updates.","1":"Trap. Outdated reports do not prove ongoing reassessment.","2":"Correct. Review notes can verify decisions and actions.","3":"Trap. Awareness artifacts are not control evidence."},"points":10}
-      ]
-    },
-    {
-      "id": "incident-management",
-      "name": "Incident Management",
-      "badge": "A.5.24 / A.5.25 / A.5.26",
-      "questions": [
-        {"id":"im-1","isoReference":"ISO/IEC 27001:2022 Annex A 5.24","scenario":"Fictional media company BrightWave says all incidents are logged and categorized.","options":["Incident register with severity and closure dates","Screenshot of team chat discussing an outage","Incident handling procedure","A personal notebook of one analyst"],"correctAnswers":[0,2],"feedback":{"0":"Correct. Register shows execution and completeness.","1":"Trap. Chat snippets are incomplete and unaudited.","2":"Correct. Procedure defines expected handling approach.","3":"Trap. Private notes are not controlled evidence."},"points":10},
-        {"id":"im-2","isoReference":"ISO/IEC 27001:2022 Annex A 5.25","scenario":"Fictional insurer HarborShield claims incidents are triaged within SLA.","options":["Ticket timestamps showing detection-to-triage times","SLA dashboard export for incident queue","A statement: 'we always triage quickly'","An empty incident template"],"correctAnswers":[0,1],"feedback":{"0":"Correct. Timestamps directly test SLA compliance.","1":"Correct. Dashboards can summarize performance trends.","2":"Trap. Unsupported statements are weak evidence.","3":"Trap. Blank templates do not show operation."},"points":10},
-        {"id":"im-3","isoReference":"ISO/IEC 27001:2022 Annex A 5.26","scenario":"Fictional cloud startup AeroStack says lessons learned are captured after incidents.","options":["Post-incident reports with root cause and actions","Repeated incidents with no remediation tracking","Evidence of corrective-action tickets created from PIR outcomes","A team photo from the retrospective"],"correctAnswers":[0,2],"feedback":{"0":"Correct. PIR reports prove structured learning.","1":"Trap. This indicates ineffectiveness, not evidence of control.","2":"Correct. Action tickets demonstrate follow-through.","3":"Trap. Photos do not evidence outcomes."},"points":10}
-      ]
-    },
-    {
-      "id": "logging-monitoring",
-      "name": "Logging & Monitoring",
-      "badge": "A.8.15 / A.8.16",
-      "questions": [
-        {"id":"lm-1","isoReference":"ISO/IEC 27001:2022 Annex A 8.15","scenario":"Fictional e-commerce platform PixelCart says critical systems are centrally logged.","options":["SIEM ingestion report for critical assets","One local server log file with no retention details","Logging standard defining what events must be captured","Engineer comment that logs are probably enabled"],"correctAnswers":[0,2],"feedback":{"0":"Correct. Ingestion reports validate scope of log collection.","1":"Trap. Single host logs cannot prove centralized logging.","2":"Correct. Standard supports control design expectations.","3":"Trap. Informal comments are not evidence."},"points":10},
-        {"id":"lm-2","isoReference":"ISO/IEC 27001:2022 Annex A 8.16","scenario":"Fictional biotech firm GeneTrail claims suspicious activity alerts are reviewed daily.","options":["Alert review queue with analyst assignments and timestamps","A screenshot of one high-severity alert only","SOC runbook for alert handling","Noisy alert count with no review records"],"correctAnswers":[0,2],"feedback":{"0":"Correct. Queue history evidences ongoing monitoring operations.","1":"Trap. Single examples cannot prove routine process execution.","2":"Correct. Runbook supports consistency of response steps.","3":"Trap. Alert volumes alone do not prove review."},"points":10},
-        {"id":"lm-3","isoReference":"ISO/IEC 27001:2022 Annex A 8.17","scenario":"Fictional enterprise NovaLedger says system clocks are synchronized for log integrity.","options":["NTP configuration evidence from representative systems","Monitoring report showing drift exceptions closed","A network diagram from three years ago","Analyst memory of setup during migration"],"correctAnswers":[0,1],"feedback":{"0":"Correct. Configuration evidence supports design implementation.","1":"Correct. Closed drift alerts show ongoing maintenance.","2":"Trap. Old diagrams are not current control evidence.","3":"Trap. Memory is non-verifiable."},"points":10}
-      ]
-    },
-    {
-      "id": "cloud-security",
-      "name": "Cloud Security",
-      "badge": "A.5.23 / A.8.9",
-      "questions": [
-        {"id":"cs-1","isoReference":"ISO/IEC 27001:2022 Annex A 5.23","scenario":"Fictional analytics provider SkyMetric says cloud shared-responsibility is clearly managed.","options":["Cloud responsibility matrix signed by security and platform teams","Cloud provider marketing brochure","Internal policy section assigning control owners","A random screenshot of cloud console home page"],"correctAnswers":[0,2],"feedback":{"0":"Correct. Responsibility matrix clarifies control ownership boundaries.","1":"Trap. Vendor brochures are not organization-specific evidence.","2":"Correct. Policy ownership mapping supports governance.","3":"Trap. Generic screenshots lack control context."},"points":10},
-        {"id":"cs-2","isoReference":"ISO/IEC 27001:2022 Annex A 8.9","scenario":"Fictional travel app RoutePilot claims cloud configuration baselines are enforced.","options":["IaC repository showing approved secure baseline modules","Exception register for baseline deviations with risk approvals","A screenshot of one secure VM setting","An unversioned checklist with no owner"],"correctAnswers":[0,1],"feedback":{"0":"Correct. IaC proves repeatable baseline implementation.","1":"Correct. Exception governance demonstrates managed deviations.","2":"Trap. Single-resource snapshots are insufficient.","3":"Trap. Uncontrolled documents are weak evidence."},"points":10},
-        {"id":"cs-3","isoReference":"ISO/IEC 27001:2022 Annex A 8.12","scenario":"Fictional collaboration suite TeamHarbor says sensitive cloud data is protected with encryption.","options":["KMS key policy and rotation evidence","Storage encryption settings export for production accounts","Statement that 'cloud defaults are secure'","A cybersecurity awareness poster"],"correctAnswers":[0,1],"feedback":{"0":"Correct. Key management artifacts are strong evidence.","1":"Correct. Config exports prove encryption status at scale.","2":"Trap. Assumptions about defaults are unreliable.","3":"Trap. Posters do not prove encryption controls."},"points":10}
-      ]
+      ],
+      "clientCurveball": "The client provides the access review spreadsheet, but it does not include reviewer sign-off or remediation status.",
+      "followUpQuestion": "What should the auditor ask next?",
+      "followUpOptions": [
+        {
+          "id": "A",
+          "text": "Accept the spreadsheet as sufficient.",
+          "isCorrect": false
+        },
+        {
+          "id": "B",
+          "text": "Ask for evidence of reviewer approval and remediation closure, such as emails, tickets, or meeting minutes.",
+          "isCorrect": true
+        },
+        {
+          "id": "C",
+          "text": "Request all user passwords.",
+          "isCorrect": false
+        }
+      ],
+      "riskSummary": {
+        "riskType": "Unauthorized access risk",
+        "assetsInvolved": [
+          "Critical application",
+          "User accounts",
+          "Privileged accounts",
+          "Sensitive business data"
+        ],
+        "dataInvolved": "User and business data",
+        "evidenceQuality": "Partial",
+        "auditJudgment": "Follow-up required",
+        "potentialFinding": "Access reviews may not be formally approved or fully remediated.",
+        "consultantLesson": "Evidence should prove not only that a review occurred, but also that it was approved, issues were remediated, and accountability is clear."
+      }
     }
   ]
 }
