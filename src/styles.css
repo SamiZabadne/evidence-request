@@ -52,3 +52,49 @@ button.primary { background:#2463b3; }
 .mission-card header h4 { font-size: 0.95rem; }
 .mission-card small { color: #9fb5cf; }
 .status-pill { font-weight: 600; }
+
+.fundamentals-panel { border-color:#3d6fa2; background: radial-gradient(circle at top left, rgba(45, 128, 199, .16), transparent 34%), linear-gradient(180deg, #111a2b 0%, #0f1928 100%); }
+.fundamentals-hero { border:1px solid #315985; border-radius:14px; padding:14px; margin-bottom:12px; background:linear-gradient(135deg, rgba(32,89,145,.65), rgba(15,25,40,.92)); }
+.fundamentals-hero h3 { font-size:1.55rem; margin-bottom:6px; }
+.eyebrow { color:#8fd5ff; text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; font-weight:700; }
+.takeaway-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.takeaway-row span, .concept-count { border:1px solid #3f6b9a; background:#122b47; color:#dff3ff; border-radius:999px; padding:6px 10px; font-size:.84rem; }
+.fundamentals-baseline { display:grid; gap:8px; margin-bottom:12px; }
+.fundamentals-baseline h4 { margin:4px 0 0; color:#cfeaff; }
+.concept-count { display:inline-block; margin-bottom:10px; }
+.fundamental-card { border:1px solid #334f73; border-radius:14px; margin:10px 0; overflow:hidden; background:#0e1929; }
+.fundamental-card summary { cursor:pointer; list-style:none; display:flex; gap:10px; align-items:center; padding:12px; background:linear-gradient(90deg, #152b48, #101b2c); }
+.fundamental-card summary::-webkit-details-marker { display:none; }
+.fundamental-card summary b { display:block; color:#f4fbff; }
+.fundamental-card summary small { display:block; color:#9fc4ea; margin-top:3px; }
+.fundamental-icon { width:38px; height:38px; display:grid; place-items:center; border-radius:12px; background:#203d63; border:1px solid #4f7dad; font-size:1.25rem; flex:0 0 auto; }
+.fundamental-content { padding:12px; }
+.learning-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; }
+.learning-grid.compact { margin-top:10px; }
+.learning-note { border:1px solid #2e405f; border-radius:12px; padding:10px; background:#101d30; }
+.learning-note h5, .evidence-box h5, .risk-box h5, .fundamental-content > h5 { margin:0 0 6px; color:#9fd4ff; font-size:.92rem; }
+.learning-note p { margin:0 0 6px; }
+.learning-note.beginner { border-left:4px solid #6dd3ff; }
+.learning-note.analogy { border-left:4px solid #b38cff; }
+.learning-note.consultant { border-left:4px solid #6ee7a8; }
+.learning-note.technical { border-left:4px solid #f5c96d; }
+.learning-note.security { border-left:4px solid #ff8f70; }
+.learning-note.audit { border-left:4px solid #8fc3ff; }
+.learning-note.questions { border-left:4px solid #79d3c0; }
+.learning-note.scenario { border-left:4px solid #e69bff; }
+.say-this { background:#0b1522; border:1px solid #26405f; border-radius:8px; padding:8px; color:#eaf6ff; }
+.osi-model { display:grid; gap:5px; margin:8px 0 12px; }
+.osi-layer { display:grid; grid-template-columns:54px 1fr auto; gap:8px; align-items:center; border:1px solid #2c4362; border-radius:10px; padding:8px; background:#0c1624; color:#aebfd4; }
+.osi-layer b { color:#d9eaff; }
+.osi-layer small { display:block; color:#819bb8; margin-top:2px; }
+.osi-layer.active { border-color:#6fd0ff; background:linear-gradient(90deg, rgba(34,112,171,.85), rgba(20,54,85,.72)); box-shadow:0 0 0 1px rgba(111,208,255,.25), inset 0 0 18px rgba(111,208,255,.12); color:#f4fbff; }
+.osi-layer.active small { color:#d3edff; }
+.osi-number { font-weight:800; color:#8fd5ff; }
+.osi-hit { justify-self:end; border:1px solid #8fd5ff; border-radius:999px; padding:3px 7px; color:#f7fdff; background:rgba(82,182,255,.18); font-size:.72rem; }
+.audit-angle-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.evidence-box, .risk-box { border-radius:12px; padding:10px; border:1px solid; }
+.evidence-box { background:rgba(35, 102, 70, .22); border-color:#3d9d6d; }
+.risk-box { background:rgba(124, 52, 46, .24); border-color:#c56b5d; }
+.fundamental-content ul { margin:6px 0 0; padding-left:20px; }
+.fundamental-content li { margin:4px 0; line-height:1.35; }
+@media (max-width: 760px) { .learning-grid, .audit-angle-grid { grid-template-columns:1fr; } .osi-layer { grid-template-columns:45px 1fr; } .osi-hit { grid-column:2; justify-self:start; } }
